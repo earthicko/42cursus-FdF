@@ -1,6 +1,7 @@
+#include "libft.h"
 #include "geometry.h"
 
-void	matrix44_matrix44_multiply(t_matrix44 *m_out, t_matrix44 *m_a, t_matrix44 *m_b)
+void	multiply_matrix44_matrix44(t_matrix44 *m_out, t_matrix44 *m_a, t_matrix44 *m_b)
 {
 	double	(*out)[4];
 	double	(*a)[4];
@@ -25,4 +26,12 @@ void	matrix44_matrix44_multiply(t_matrix44 *m_out, t_matrix44 *m_a, t_matrix44 *
 	out[3][1] = a[3][0] * b[0][1] + a[3][1] * b[1][1] + a[3][2] * b[2][1] + a[3][3] * b[3][1];
 	out[3][2] = a[3][0] * b[0][2] + a[3][1] * b[1][2] + a[3][2] * b[2][2] + a[3][3] * b[3][2];
 	out[3][3] = a[3][0] * b[0][3] + a[3][1] * b[1][3] + a[3][2] * b[2][3] + a[3][3] * b[3][3];
+}
+
+void	multiply_matrix44_matrix44_inplace(t_matrix44 *m_out, t_matrix44 *m)
+{
+	t_matrix44	temp;
+
+	multiply_matrix44_matrix44(&temp, m, m_out);
+	ft_memcpy(m_out, &temp, sizeof(t_matrix44));
 }

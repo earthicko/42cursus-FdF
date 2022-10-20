@@ -1,13 +1,14 @@
+#include "libft.h"
 #include "geometry.h"
 #include "epsilon.h"
 
-void	vertex_matrix44_multiply(t_vertex *v_out, t_vertex *v_a, t_matrix44 *m_b)
+void	multiply_vertex_matrix44(t_vertex *v_out, t_vertex *v_a, t_matrix44 *m_b)
 {
-	float	w;
-	float	(*m)[4];
-	float	x;
-	float	y;
-	float	z;
+	double	w;
+	double	(*m)[4];
+	double	x;
+	double	y;
+	double	z;
 
 	m = m_b->i;
 	x = v_a->x;
@@ -23,4 +24,12 @@ void	vertex_matrix44_multiply(t_vertex *v_out, t_vertex *v_a, t_matrix44 *m_b)
 		v_out->y /= w;
 		v_out->z /= w;
 	}
+}
+
+void	multiply_vertex_matrix44_inplace(t_vertex *v_out, t_matrix44 *m)
+{
+	t_vertex	temp;
+
+	multiply_vertex_matrix44(&temp, v_out, m);
+	ft_memcpy(v_out, &temp, sizeof(t_vertex));
 }

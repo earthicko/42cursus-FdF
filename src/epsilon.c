@@ -1,3 +1,4 @@
+#include "consts.h"
 #include "epsilon.h"
 
 int	is_within_error(double a, double b)
