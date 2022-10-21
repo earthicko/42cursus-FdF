@@ -13,7 +13,7 @@ static void	rotate_matrix44_x(t_matrix44 *out, t_matrix44 *m, double theta)
 	rotate.i[2][1] = -sin(theta);
 	rotate.i[2][2] = cos(theta);
 	rotate.i[3][3] = 1;
-	multiply_matrix44_matrix44(out, m, &rotate);
+	multiply_m44_m44(out, m, &rotate);
 }
 
 static void	rotate_matrix44_y(t_matrix44 *out, t_matrix44 *m, double theta)
@@ -27,7 +27,7 @@ static void	rotate_matrix44_y(t_matrix44 *out, t_matrix44 *m, double theta)
 	rotate.i[2][0] = sin(theta);
 	rotate.i[2][2] = cos(theta);
 	rotate.i[3][3] = 1;
-	multiply_matrix44_matrix44(out, m, &rotate);
+	multiply_m44_m44(out, m, &rotate);
 }
 
 static void	rotate_matrix44_z(t_matrix44 *out, t_matrix44 *m, double theta)
@@ -41,23 +41,23 @@ static void	rotate_matrix44_z(t_matrix44 *out, t_matrix44 *m, double theta)
 	rotate.i[1][1] = cos(theta);
 	rotate.i[2][2] = 1;
 	rotate.i[3][3] = 1;
-	multiply_matrix44_matrix44(out, m, &rotate);
+	multiply_m44_m44(out, m, &rotate);
 }
 
-void	rotate_matrix44(t_matrix44 *out, t_matrix44 *m, int i_axis, double theta)
+void	rotate_m44(t_matrix44 *out, t_matrix44 *m, int xyz, double theta)
 {
-	if (i_axis == 0)
+	if (xyz == 0)
 		rotate_matrix44_x(out, m, theta);
-	else if (i_axis == 1)
+	else if (xyz == 1)
 		rotate_matrix44_y(out, m, theta);
-	else if (i_axis == 2)
+	else if (xyz == 2)
 		rotate_matrix44_z(out, m, theta);
 }
 
-void	rotate_matrix44_inplace(t_matrix44 *m, int i_axis, double theta)
+void	rotate_m44_inplace(t_matrix44 *m, int i_axis, double theta)
 {
 	t_matrix44	temp;
 
-	rotate_matrix44(&temp, m, i_axis, theta);
+	rotate_m44(&temp, m, i_axis, theta);
 	ft_memcpy(m, &temp, sizeof(t_matrix44));
 }

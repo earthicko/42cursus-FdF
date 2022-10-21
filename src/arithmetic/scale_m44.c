@@ -1,21 +1,21 @@
 #include "libft.h"
 #include "geometry.h"
 
-void	scale_matrix44(t_matrix44 *out, t_matrix44 *m, double sx, double sy, double sz)
+void	scale_m44(t_matrix44 *out, t_matrix44 *m, t_vertex *scale)
 {
-	t_matrix44	scale;
+	t_matrix44	scaler;
 
-	init_matrix44_identity(&scale);
-	scale.i[0][0] = sx;
-	scale.i[1][1] = sy;
-	scale.i[2][2] = sz;
-	multiply_matrix44_matrix44(out, m, &scale);
+	init_matrix44_identity(&scaler);
+	scaler.i[0][0] = scale->x;
+	scaler.i[1][1] = scale->y;
+	scaler.i[2][2] = scale->z;
+	multiply_m44_m44(out, m, &scaler);
 }
 
-void	scale_matrix44_inplace(t_matrix44 *m, double dx, double dy, double dz)
+void	scale_m44_inplace(t_matrix44 *m, t_vertex *scale)
 {
 	t_matrix44	temp;
 
-	scale_matrix44(&temp, m, dx, dy, dz);
+	scale_m44(&temp, m, scale);
 	ft_memcpy(m, &temp, sizeof(t_matrix44));
 }

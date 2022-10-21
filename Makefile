@@ -15,7 +15,6 @@ SRCNAME			= \
 				src/debug/debug_matrix \
 				src/debug/debug_camera \
 				src/test_drivers/make_cube \
-				src/consts \
 				src/arithmetic/epsilon \
 				src/arithmetic/multiply_m44_m44 \
 				src/arithmetic/multiply_vertex_m44 \
@@ -23,10 +22,14 @@ SRCNAME			= \
 				src/arithmetic/scale_m44 \
 				src/arithmetic/translate_m44 \
 				src/geometry/matrix \
+				src/geometry/map \
 				src/projection/camera \
 				src/projection/projection \
 				src/display/display \
 				src/display/display_putline \
+				src/display/display_putbuffer \
+				src/mlx_interface/keyboard \
+				src/mlx_interface/state \
 				src/fdf
 
 SRCNAME_BONUS	= \

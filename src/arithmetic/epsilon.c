@@ -3,7 +3,7 @@
 
 int	is_within_error(double a, double b)
 {
-	if (-g_epsilon <= b - a && b - a <= g_epsilon)
+	if (-EPSILON <= b - a && b - a <= EPSILON)
 		return (1);
 	return (0);
 }

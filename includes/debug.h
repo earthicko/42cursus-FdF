@@ -1,5 +1,5 @@
-#ifndef debug_H
-# define debug_H
+#ifndef DEBUG_H
+# define DEBUG_H
 # include "geometry.h"
 # include "projection.h"
 

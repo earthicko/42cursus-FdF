@@ -3,11 +3,20 @@
 
 void	print_matrix(t_matrix44 *m)
 {
-	for (int i = 0; i < 4; i++)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 4)
 	{
 		printf("| ");
-		for (int j = 0; j < 4; j++)
+		j = 0;
+		while (j < 4)
+		{
 			printf("%10.5f ", m->i[i][j]);
+			j++;
+		}
 		printf("|\n");
+		i++;
 	}
 }

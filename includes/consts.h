@@ -1,11 +1,12 @@
 #ifndef CONSTS_H
 # define CONSTS_H
+# include "math.h"
 
-extern const double	g_epsilon;
-extern const double	g_r_cam;
-extern const double	g_cam_step_a;
-extern const double	g_cam_step_e;
-extern const int	g_screen_w;
-extern const int	g_screen_h;
-extern const char	*g_screen_title;
+# define EPSILON 0.001
+# define R_CAM 20.0
+# define CAM_STEP_A (M_PI / 24)
+# define CAM_STEP_E (M_PI / 24)
+# define SCREEN_W 1000
+# define SCREEN_H 1000
+# define SCREEN_TITLE "FdF"
 #endif

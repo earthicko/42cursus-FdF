@@ -20,8 +20,8 @@ int	main(void)
 	increment_e_camera(cam, 1);
 	print_camera(cam);
 	project_to_camera(cube, cam);
-	project_to_screen(disp, cube);
-	refresh_frame(disp, cube);
+	project_to_display(disp, cube);
+	putframe_display(disp, cube);
 
 	mlx_loop(disp->mlx);
 	return (0);

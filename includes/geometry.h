@@ -22,9 +22,8 @@ typedef struct s_matrix44
 typedef struct s_map
 {
 	double		grid_size;
-	int			n_vertices;
+	int			n_v;
 	t_vertex	*v;
-	t_vertex	*v_p;
 	int			n_e;
 	t_edge		*e;
 	double		x_bound[2];
@@ -36,15 +35,18 @@ void		init_matrix44_zero(t_matrix44 *m);
 void		init_matrix44_identity(t_matrix44 *m);
 t_matrix44	*create_matrix44(void);
 
-void		multiply_vertex_matrix44(t_vertex *v_out, t_vertex *v_a, t_matrix44 *m_b);
-void		multiply_vertex_matrix44_inplace(t_vertex *v_out, t_matrix44 *m);
-void		multiply_matrix44_matrix44(t_matrix44 *m_out, t_matrix44 *m_a, t_matrix44 *m_b);
-void		multiply_matrix44_matrix44_inplace(t_matrix44 *m_out, t_matrix44 *m);
+void		multiply_vertex_m44(t_vertex *out, t_vertex *a, t_matrix44 *b);
+void		multiply_vertex_m44_inplace(t_vertex *out, t_matrix44 *m);
+void		multiply_m44_m44(t_matrix44 *out, t_matrix44 *a, t_matrix44 *b);
+void		multiply_m44_m44_inplace(t_matrix44 *out, t_matrix44 *m);
 
-void		translate_matrix44(t_matrix44 *out, t_matrix44 *m, double dx, double dy, double dz);
-void		translate_matrix44_inplace(t_matrix44 *m, double dx, double dy, double dz);
-void		scale_matrix44(t_matrix44 *out, t_matrix44 *m, double sx, double sy, double sz);
-void		scale_matrix44_inplace(t_matrix44 *m, double dx, double dy, double dz);
-void		rotate_matrix44(t_matrix44 *out, t_matrix44 *m, int i_axis, double theta);
-void		rotate_matrix44_inplace(t_matrix44 *m, int i_axis, double theta);
+void		translate_m44(t_matrix44 *out, t_matrix44 *m, t_vertex *delta);
+void		translate_m44_inplace(t_matrix44 *m, t_vertex *delta);
+void		scale_m44(t_matrix44 *out, t_matrix44 *m, t_vertex *scale);
+void		scale_m44_inplace(t_matrix44 *m, t_vertex *scale);
+void		rotate_m44(t_matrix44 *out, t_matrix44 *m, int xyz, double theta);
+void		rotate_m44_inplace(t_matrix44 *m, int xyz, double theta);
+
+t_map		*create_map(void);
+t_map		*del_map(t_map *map);
 #endif

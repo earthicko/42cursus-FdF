@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "consts.h"
 #include "projection.h"
 #include "geometry.h"
@@ -6,46 +7,51 @@
 
 static void	refresh_camera(t_camera *cam)
 {
+	t_vertex	temp;
+
 	init_matrix44_identity(&cam->ctow);
 	init_matrix44_identity(&cam->wtoc);
-	rotate_matrix44_inplace(&cam->ctow, 1, M_PI_2);
-	translate_matrix44_inplace(&cam->ctow, g_r_cam, 0, 0);
-	rotate_matrix44_inplace(&cam->ctow, 1, -cam->elevation);
-	rotate_matrix44_inplace(&cam->ctow, 2, cam->azimuth);
-	rotate_matrix44_inplace(&cam->wtoc, 2, -cam->azimuth);
-	rotate_matrix44_inplace(&cam->wtoc, 1, cam->elevation);
-	translate_matrix44_inplace(&cam->wtoc, -g_r_cam, 0, 0);
-	rotate_matrix44_inplace(&cam->wtoc, 1, -M_PI_2);
+	rotate_m44_inplace(&cam->ctow, 1, M_PI_2);
+	temp.x = R_CAM;
+	temp.y = 0;
+	temp.z = 0;
+	translate_m44_inplace(&cam->ctow, &temp);
+	rotate_m44_inplace(&cam->ctow, 1, cam->azimuth);
+	rotate_m44_inplace(&cam->ctow, 2, -cam->elevation);
+	rotate_m44_inplace(&cam->wtoc, 2, cam->elevation);
+	rotate_m44_inplace(&cam->wtoc, 1, -cam->azimuth);
+	temp.x = -R_CAM;
+	translate_m44_inplace(&cam->wtoc, &temp);
+	rotate_m44_inplace(&cam->wtoc, 1, -M_PI_2);
 }
 
 t_camera	*create_camera(void)
 {
 	t_camera	*cam;
 
-	cam = malloc(sizeof(t_camera));
+	cam = (t_camera *)malloc(sizeof(t_camera));
 	if (!cam)
 		return (NULL);
-	cam->azimuth = 0;
-	cam->elevation = 0;
+	ft_memset(cam, 0, sizeof(t_camera));
 	refresh_camera(cam);
 	return (cam);
 }
 
+void	del_camera(t_camera *cam)
+{
+	if (cam->v)
+		free(cam->v);
+	free(cam);
+}
+
 void	increment_e_camera(t_camera *cam, int dir)
 {
-	cam->elevation += g_cam_step_e * dir;
+	cam->elevation += CAM_STEP_E * dir;
 	refresh_camera(cam);
 }
 
 void	increment_a_camera(t_camera *cam, int dir)
 {
-	cam->azimuth += g_cam_step_a * dir;
-	refresh_camera(cam);
-}
-
-void	set_camera(t_camera *cam, double azimuth, double elevation)
-{
-	cam->azimuth = azimuth;
-	cam->elevation = elevation;
+	cam->azimuth += CAM_STEP_A * dir;
 	refresh_camera(cam);
 }

@@ -1,21 +1,21 @@
 #include "libft.h"
 #include "geometry.h"
 
-void	translate_matrix44(t_matrix44 *out, t_matrix44 *m, double dx, double dy, double dz)
+void	translate_m44(t_matrix44 *out, t_matrix44 *m, t_vertex *delta)
 {
 	t_matrix44	translate;
 
 	init_matrix44_identity(&translate);
-	translate.i[3][0] = dx;
-	translate.i[3][1] = dy;
-	translate.i[3][2] = dz;
-	multiply_matrix44_matrix44(out, m, &translate);
+	translate.i[3][0] = delta->x;
+	translate.i[3][1] = delta->y;
+	translate.i[3][2] = delta->z;
+	multiply_m44_m44(out, m, &translate);
 }
 
-void	translate_matrix44_inplace(t_matrix44 *m, double dx, double dy, double dz)
+void	translate_m44_inplace(t_matrix44 *m, t_vertex *delta)
 {
 	t_matrix44	temp;
 
-	translate_matrix44(&temp, m, dx, dy, dz);
+	translate_m44(&temp, m, delta);
 	ft_memcpy(m, &temp, sizeof(t_matrix44));
 }

@@ -7,9 +7,8 @@ t_map	*init_map(int grid_size, int n_v, int n_e)
 
 	map = malloc(sizeof(t_map));
 	map->grid_size = grid_size;
-	map->n_vertices = n_v;
+	map->n_v = n_v;
 	map->v = malloc(sizeof(t_vertex) * n_v);
-	map->v_p = malloc(sizeof(t_vertex) * n_v);
 	map->n_e = n_e;
 	map->e = malloc(sizeof(t_vertex) * n_e);
 	return (map);
