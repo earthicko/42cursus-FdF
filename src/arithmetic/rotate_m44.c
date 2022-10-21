@@ -2,45 +2,6 @@
 #include "geometry.h"
 #include <math.h>
 
-void	translate_matrix44(t_matrix44 *out, t_matrix44 *m, double dx, double dy, double dz)
-{
-	t_matrix44	translate;
-
-	init_matrix44_identity(&translate);
-	translate.i[3][0] = dx;
-	translate.i[3][1] = dy;
-	translate.i[3][2] = dz;
-	multiply_matrix44_matrix44(out, m, &translate);
-}
-
-void	translate_matrix44_inplace(t_matrix44 *m, double dx, double dy, double dz)
-{
-	t_matrix44	temp;
-
-	translate_matrix44(&temp, m, dx, dy, dz);
-	ft_memcpy(m, &temp, sizeof(t_matrix44));
-}
-
-void	scale_matrix44(t_matrix44 *out, t_matrix44 *m, double sx, double sy, double sz)
-{
-	t_matrix44	scale;
-
-	init_matrix44_zero(&scale);
-	scale.i[0][0] = sx;
-	scale.i[1][1] = sy;
-	scale.i[2][2] = sz;
-	scale.i[3][3] = 1;
-	multiply_matrix44_matrix44(out, m, &scale);
-}
-
-void	scale_matrix44_inplace(t_matrix44 *m, double dx, double dy, double dz)
-{
-	t_matrix44	temp;
-
-	scale_matrix44(&temp, m, dx, dy, dz);
-	ft_memcpy(m, &temp, sizeof(t_matrix44));
-}
-
 static void	rotate_matrix44_x(t_matrix44 *out, t_matrix44 *m, double theta)
 {
 	t_matrix44	rotate;

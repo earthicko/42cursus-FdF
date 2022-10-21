@@ -7,20 +7,27 @@ LINK_LIBFT		= -L $(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
 INC_DIR_LIBFT	= -I $(LIBFT_DIR)
 
 LINK_MINILIBX	= -L . -lmlx -lXext -lX11
+LINK_MINILIBX_	= -L . -lmlx -framework OpenGL -framework AppKit
 
 INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
 
 SRCNAME			= \
-				src/epsilon \
+				src/debug/debug_matrix \
+				src/debug/debug_camera \
+				src/test_drivers/make_cube \
 				src/consts \
-				src/matrix_multiply \
-				src/matrix \
-				src/translate \
-				src/vertex_matrix_multiply \
-				src/camera \
-				test_camera \
-				src/matrix_debug \
-				src/camera_debug
+				src/arithmetic/epsilon \
+				src/arithmetic/multiply_m44_m44 \
+				src/arithmetic/multiply_vertex_m44 \
+				src/arithmetic/rotate_m44 \
+				src/arithmetic/scale_m44 \
+				src/arithmetic/translate_m44 \
+				src/geometry/matrix \
+				src/projection/camera \
+				src/projection/projection \
+				src/display/display \
+				src/display/display_putline \
+				src/fdf
 
 SRCNAME_BONUS	= \
 
@@ -36,10 +43,10 @@ CFLAGS			= -Wall -Werror -Wextra
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBFT) $(LINK_MINILIBX) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBFT) $(LINK_MINILIBX_) -o $(NAME)
 
 bonus : $(LIBFT) $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ_BONUS) $(LINK_LIBFT) $(LINK_MINILIBX) -o $(BONUS)
+	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ_BONUS) $(LINK_LIBFT) $(LINK_MINILIBX_) -o $(BONUS)
 
 $(LIBFT) :
 	make -C $(LIBFT_DIR)/

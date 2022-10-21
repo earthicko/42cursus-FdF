@@ -1,18 +1,21 @@
 #include "consts.h"
-#include "camera.h"
+#include "projection.h"
 #include "geometry.h"
+#include <math.h>
 #include <stdlib.h>
 
 static void	refresh_camera(t_camera *cam)
 {
-	init_matrix44_identity(&cam->cam_to_world);
-	init_matrix44_identity(&cam->world_to_cam);
-	translate_matrix44_inplace(&cam->cam_to_world, g_r_cam, 0, 0);
-	rotate_matrix44_inplace(&cam->cam_to_world, 1, -cam->elevation);
-	rotate_matrix44_inplace(&cam->cam_to_world, 2, cam->azimuth);
-	rotate_matrix44_inplace(&cam->world_to_cam, 2, -cam->azimuth);
-	rotate_matrix44_inplace(&cam->world_to_cam, 1, cam->elevation);
-	translate_matrix44_inplace(&cam->world_to_cam, -g_r_cam, 0, 0);
+	init_matrix44_identity(&cam->ctow);
+	init_matrix44_identity(&cam->wtoc);
+	rotate_matrix44_inplace(&cam->ctow, 1, M_PI_2);
+	translate_matrix44_inplace(&cam->ctow, g_r_cam, 0, 0);
+	rotate_matrix44_inplace(&cam->ctow, 1, -cam->elevation);
+	rotate_matrix44_inplace(&cam->ctow, 2, cam->azimuth);
+	rotate_matrix44_inplace(&cam->wtoc, 2, -cam->azimuth);
+	rotate_matrix44_inplace(&cam->wtoc, 1, cam->elevation);
+	translate_matrix44_inplace(&cam->wtoc, -g_r_cam, 0, 0);
+	rotate_matrix44_inplace(&cam->wtoc, 1, -M_PI_2);
 }
 
 t_camera	*create_camera(void)
@@ -36,7 +39,7 @@ void	increment_e_camera(t_camera *cam, int dir)
 
 void	increment_a_camera(t_camera *cam, int dir)
 {
-	cam->elevation += g_cam_step_a * dir;
+	cam->azimuth += g_cam_step_a * dir;
 	refresh_camera(cam);
 }
 

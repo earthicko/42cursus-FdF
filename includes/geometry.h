@@ -10,14 +10,27 @@ typedef struct s_vertex
 
 typedef struct s_edge
 {
-	t_vertex	*s;
-	t_vertex	*e;
+	int	s;
+	int	e;
 }	t_edge;
 
 typedef struct s_matrix44
 {
 	double	i[4][4];
 }	t_matrix44;
+
+typedef struct s_map
+{
+	double		grid_size;
+	int			n_vertices;
+	t_vertex	*v;
+	t_vertex	*v_p;
+	int			n_e;
+	t_edge		*e;
+	double		x_bound[2];
+	double		y_bound[2];
+	double		z_bound[2];
+}	t_map;
 
 void		init_matrix44_zero(t_matrix44 *m);
 void		init_matrix44_identity(t_matrix44 *m);
