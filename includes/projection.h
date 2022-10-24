@@ -11,6 +11,7 @@ typedef struct s_camera
 	t_vertex	*v;
 	double		azimuth;
 	double		elevation;
+	double		step;
 	double		fov;
 }	t_camera;
 

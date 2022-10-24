@@ -18,6 +18,7 @@ int	main(void)
 	if (!state)
 		return (2);
 	mlx_key_hook(state->disp->win, mlx_key_interface, state);
+	mlx_do_key_autorepeaton(state->disp->mlx);
 	mlx_loop(state->disp->mlx);
 	return (0);
 }

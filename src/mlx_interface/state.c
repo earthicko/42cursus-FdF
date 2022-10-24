@@ -36,13 +36,17 @@ t_state	*create_state(void)
 			(char *)SCREEN_TITLE);
 	if (!state->disp)
 		return (del_state(state));
-	refresh_frame(state);
+	if (refresh_frame(state))
+		return (del_state(state));
 	return (state);
 }
 
-void	refresh_frame(t_state *state)
+int	refresh_frame(t_state *state)
 {
-	project_to_camera(state->cam, state->map);
-	project_to_display(state->disp, state->cam);
+	if (project_to_camera(state->cam, state->map))
+		return (-1);
+	if (project_to_display(state->disp, state->cam))
+		return (-1);
 	putframe_display(state->disp, state->map);
+	return (0);
 }

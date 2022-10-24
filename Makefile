@@ -6,8 +6,12 @@ LIBFT			= libft.a
 LINK_LIBFT		= -L $(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
 INC_DIR_LIBFT	= -I $(LIBFT_DIR)
 
-LINK_MINILIBX	= -L . -lmlx -lXext -lX11
-LINK_MINILIBX_	= -L . -lmlx -framework OpenGL -framework AppKit
+LINK_MLX		= -L . -lmlx -lXext -lX11
+LINK_MLX_		= -L . -lmlx -framework OpenGL -framework AppKit
+
+LINK_LIBM		= -lm
+
+LINK_LIBS		= $(LINK_LIBFT) $(LINK_MLX) $(LINK_LIBM)
 
 INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
 
@@ -46,13 +50,13 @@ CFLAGS			= -Wall -Werror -Wextra
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBFT) $(LINK_MINILIBX_) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBS) -o $(NAME)
 
 bonus : $(LIBFT) $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ_BONUS) $(LINK_LIBFT) $(LINK_MINILIBX_) -o $(BONUS)
+	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ_BONUS) $(LINK_LIBS) -o $(BONUS)
 
 $(LIBFT) :
-	make -C $(LIBFT_DIR)/
+	make -s -C $(LIBFT_DIR)/
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@

@@ -33,6 +33,9 @@ t_camera	*create_camera(void)
 	if (!cam)
 		return (NULL);
 	ft_memset(cam, 0, sizeof(t_camera));
+	cam->azimuth = 0;
+	cam->elevation = 0;
+	cam->step = M_PI / STEP_PER_ROTATION;
 	refresh_camera(cam);
 	return (cam);
 }
@@ -46,12 +49,12 @@ void	del_camera(t_camera *cam)
 
 void	increment_e_camera(t_camera *cam, int dir)
 {
-	cam->elevation += CAM_STEP_E * dir;
+	cam->elevation += cam->step * dir;
 	refresh_camera(cam);
 }
 
 void	increment_a_camera(t_camera *cam, int dir)
 {
-	cam->azimuth += CAM_STEP_A * dir;
+	cam->azimuth += cam->step * dir;
 	refresh_camera(cam);
 }
