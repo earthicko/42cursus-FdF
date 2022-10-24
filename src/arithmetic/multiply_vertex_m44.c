@@ -2,6 +2,7 @@
 #include "geometry.h"
 #include "epsilon.h"
 
+// (x, y, z, w) 4차원 점을 곱하는 것을 가정하지만 w는 항상 1이어야 함 (아닐 시 스케일)
 void	multiply_vertex_m44(t_vertex *out, t_vertex *v_a, t_matrix44 *m_b)
 {
 	double	w;

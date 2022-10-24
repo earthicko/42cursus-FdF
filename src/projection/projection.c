@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// map에 저장된 월드 좌표계 점을 카메라의 지역좌표계로 투영
 int	project_to_camera(t_camera *cam, t_map *map)
 {
 	int	i;
@@ -28,6 +29,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 	return (0);
 }
 
+// 카메라에 저장된 (-1, 1) 범위의 점을 실제 디스플레이 크기로 매핑
 int	project_to_display(t_display *disp, t_camera *cam)
 {
 	int		i;

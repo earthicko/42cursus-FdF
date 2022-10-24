@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// putframe_display 호출 전 반드시 호출해야 하는 함수
 static int	start_buffer_display(t_display *disp)
 {
 	int	a[3];
@@ -16,6 +17,7 @@ static int	start_buffer_display(t_display *disp)
 	return (0);
 }
 
+// 그릴 내용을 모두 그린 후 호출하여 이미지 삭제 및 실제로 내용을 출력
 static int	end_buffer_display(t_display *disp)
 {
 	if (!disp->img)
@@ -26,6 +28,7 @@ static int	end_buffer_display(t_display *disp)
 	return (0);
 }
 
+// map에 저장된 모든 edge를 이미지에 기록
 void	putframe_display(t_display *disp, t_map *map)
 {
 	int		i;

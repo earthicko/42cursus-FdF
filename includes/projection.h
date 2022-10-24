@@ -3,6 +3,7 @@
 # include "geometry.h"
 # include "display.h"
 
+// camera to world, world to camera 행렬 2개
 typedef struct s_camera
 {
 	t_matrix44	ctow;

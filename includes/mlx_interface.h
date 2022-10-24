@@ -8,6 +8,7 @@
 # define KEYCODE_Q 113
 # define KEYCODE_E 101
 
+// mlx hook에 param으로 필요 변수를 한번에 전달하기 위한 구조체
 typedef struct s_state
 {
 	t_map		*map;

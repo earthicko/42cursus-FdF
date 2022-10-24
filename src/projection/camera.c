@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+// 월드에 동일한 좌표계 생성, 반지름만큼 평행이동, 2번 회전
 static void	refresh_camera(t_camera *cam)
 {
 	t_vertex	temp;
