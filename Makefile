@@ -20,6 +20,9 @@ SRCNAME			= \
 				src/debug/debug_camera \
 				src/debug/debug_map \
 				src/test_drivers/make_cube \
+				src/parser/parser \
+				src/parser/parse_map_info \
+				src/parser/parse_map_content \
 				src/arithmetic/epsilon \
 				src/arithmetic/multiply_m44_m44 \
 				src/arithmetic/multiply_vertex_m44 \

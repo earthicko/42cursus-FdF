@@ -22,8 +22,8 @@ typedef struct s_matrix44
 typedef struct s_map
 {
 	double		grid_size;
-	int			width;
-	int			height;
+	int			n_row;
+	int			n_col;
 	int			n_v;
 	t_vertex	*v;
 	int			n_e;
