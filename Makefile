@@ -4,7 +4,7 @@ BONUS			=
 LIBFT_DIR		= libft
 LIBFT			= libft.a
 LINK_LIBFT		= -L $(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
-INC_DIR_LIBFT	= -I $(LIBFT_DIR)
+INC_DIR_LIBFT	= -I $(LIBFT_DIR)/includes
 
 LINK_MLX		= -L . -lmlx -lXext -lX11
 LINK_MLX_		= -L . -lmlx -framework OpenGL -framework AppKit
