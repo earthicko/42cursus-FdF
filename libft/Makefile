@@ -9,6 +9,7 @@ SRCNAME		= \
 			ft_isdigit \
 			ft_isalnum \
 			ft_isascii \
+			ft_isspace \
 			ft_isprint \
 			ft_strlen \
 			ft_memset \
@@ -26,12 +27,14 @@ SRCNAME		= \
 			ft_memcmp \
 			ft_strnstr \
 			ft_atoi \
+			ft_atoi_if_valid \
 			ft_calloc \
 			ft_strdup \
 			ft_substr \
 			ft_strjoin \
 			ft_strtrim \
 			ft_split \
+			ft_split_by_chars \
 			ft_itoa \
 			ft_strmapi \
 			ft_striteri \
@@ -48,6 +51,7 @@ SRCNAME		= \
 			ft_lstclear \
 			ft_lstiter \
 			ft_lstmap \
+			ft_free_strarr \
 			get_next_line \
 			get_next_line_utils \
 			get_next_line_utils2 \
