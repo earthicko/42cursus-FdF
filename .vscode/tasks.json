@@ -1,0 +1,26 @@
+{
+	"tasks": [
+		{
+			// type를 shell로 설정
+			"type": "shell",
+			// custom label를 설정
+			"label": "Build using Make",
+			// make 명령어를 실행!
+			"command": "/usr/bin/make",
+			// 현재 workspace를 기준으로 re, debug_make 작업을 수행함
+			"args": [
+				"-C",
+				"${workspaceFolder}",
+				"all"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	],
+	"version": "2.0.0"
+}
