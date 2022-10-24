@@ -46,7 +46,7 @@ OBJ_BONUS		= $(addsuffix .o, $(SRCNAME_BONUS))
 
 RM				= rm -f
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra
+CFLAGS			= -g -Wall -Werror -Wextra
 
 all : $(NAME)
 
