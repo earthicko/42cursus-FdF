@@ -18,6 +18,7 @@ INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
 SRCNAME			= \
 				src/debug/debug_matrix \
 				src/debug/debug_camera \
+				src/debug/debug_map \
 				src/test_drivers/make_cube \
 				src/arithmetic/epsilon \
 				src/arithmetic/multiply_m44_m44 \
