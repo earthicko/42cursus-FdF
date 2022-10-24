@@ -9,7 +9,7 @@ void	print_map(t_map *map)
 		return ;
 	}
 	printf("grid size: %f\n", map->grid_size);
-	printf("%d x %d\n", map->width, map->height);
+	printf("%d x %d\n", map->n_col, map->n_row);
 	printf("%d vertices\n", map->n_v);
 	for (int i = 0; i < map->n_v; i++)
 		printf("(%f, %f, %f) ", map->v[i].x, map->v[i].y, map->v[i].z);
