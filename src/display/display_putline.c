@@ -25,7 +25,7 @@ static void	putpixel_display(t_display *disp, t_pixel p)
 		return ;
 	o_height = disp->nbytes * p.y;
 	o_width = p.x * disp->bpp / 8;
-	*(int *)(disp->img_addr + o_height + o_width) = 0xFFFFFFFF;
+	*(int *)(disp->img_addr + o_height + o_width) = 0x00FFFFFF;
 }
 
 static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)

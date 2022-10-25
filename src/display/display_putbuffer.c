@@ -39,16 +39,12 @@ static int	end_buffer_display(t_display *disp)
 void	putframe_display(t_display *disp, t_map *map)
 {
 	int		i;
-	t_pixel	s;
-	t_pixel	e;
 
 	start_buffer_display(disp);
 	i = 0;
 	while (i < map->n_e)
 	{
-		ft_memcpy(&s, &disp->v[map->e[i].s], sizeof(t_pixel));
-		ft_memcpy(&e, &disp->v[map->e[i].e], sizeof(t_pixel));
-		putline_display(disp, s, e);
+		putline_display(disp, disp->v[map->e[i].s], disp->v[map->e[i].e]);
 		i++;
 	}
 	end_buffer_display(disp);
