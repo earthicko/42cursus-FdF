@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include "mlx_interface.h"
-#include "display.h"
 #include "consts.h"
 #include "parser.h"
 

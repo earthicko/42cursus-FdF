@@ -34,8 +34,8 @@ SRCNAME			= \
 				arithmetic/translate_m44 \
 				geometry/matrix \
 				geometry/map \
-				projection/camera \
-				projection/projection \
+				display/camera \
+				display/projection \
 				display/display \
 				display/display_putline \
 				display/display_putbuffer \

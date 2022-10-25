@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "projection.h"
+#include "display.h"
 #include <math.h>
 
 void	refresh_camera(t_camera *cam)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "projection.h"
+#include "display.h"
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>

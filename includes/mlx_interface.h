@@ -12,7 +12,7 @@
 
 #ifndef MLX_INTERFACE_H
 # define MLX_INTERFACE_H
-# include "projection.h"
+# include "display.h"
 
 typedef struct s_state
 {

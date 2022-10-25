@@ -20,6 +20,16 @@ typedef struct s_pixel
 	int				y;
 }	t_pixel;
 
+typedef struct s_camera
+{
+	t_matrix44	wtoc;
+	int			n_v;
+	t_vertex	*v;
+	double		azi;
+	double		ele;
+	double		radius;
+}	t_camera;
+
 typedef struct s_display
 {
 	int		bpp;
@@ -35,8 +45,15 @@ typedef struct s_display
 	t_pixel	*v;
 }	t_display;
 
+t_camera	*create_camera(t_map *map);
+void		del_camera(t_camera *cam);
+void		refresh_camera(t_camera *cam);
+
 t_display	*create_display(int width, int height, char *title);
 t_display	*del_display(t_display *disp);
+
+int			project_to_camera(t_camera *cam, t_map *map);
+int			project_to_display(t_display *disp, t_camera *cam);
 int			putline_display(t_display *disp, t_pixel s, t_pixel e);
 void		putframe_display(t_display *disp, t_map *map);
 #endif
