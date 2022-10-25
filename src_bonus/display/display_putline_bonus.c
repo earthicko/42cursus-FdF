@@ -29,8 +29,6 @@ static unsigned int	avg_color(unsigned int a, unsigned int b)
 		col[1] = (unsigned char)(b >> (i * 8));
 		col[2] = ((col[0] + col[1]) / 2) << (i * 8);
 		out |= col[2];
-		// printf("col: %d, %d, %d\n", col[0], col[1], col[2]);
-		// printf("out: %x\n", out);
 		i++;
 	}
 	return (out);

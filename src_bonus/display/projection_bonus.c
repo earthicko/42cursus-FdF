@@ -36,6 +36,15 @@ static int	alloc_camera_v(t_camera *cam, int n_v)
 	return (0);
 }
 
+static int	is_visible(t_vertex *v)
+{
+	if (!(-CLIPPING_XY_D < v->x && v->x < CLIPPING_XY_D))
+		return (0);
+	if (!(-CLIPPING_XY_D < v->y && v->y < CLIPPING_XY_D))
+		return (0);
+	return (1);
+}
+
 int	project_to_camera(t_camera *cam, t_map *map)
 {
 	int	i;
@@ -46,14 +55,13 @@ int	project_to_camera(t_camera *cam, t_map *map)
 	while (i < map->n_v)
 	{
 		multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
-		if (-cam->v[i].z < CLIPPING_Z_D)
+		cam->is_visible[i] = 0;
+		if (-cam->v[i].z > CLIPPING_Z_D)
 		{
-			cam->is_visible[i] = 0;
-			continue;
+			cam->v[i].x = -cam->v[i].x / cam->v[i].z;
+			cam->v[i].y = -cam->v[i].y / cam->v[i].z;
+			cam->is_visible[i] = is_visible(&cam->v[i]);
 		}
-		cam->is_visible[i] = 1;
-		cam->v[i].x = -cam->v[i].x / cam->v[i].z;
-		cam->v[i].y = -cam->v[i].y / cam->v[i].z;
 		i++;
 	}
 	return (0);
@@ -68,34 +76,28 @@ static int	map_screen_to_display(double src, double disp_size)
 	return ((src + 1.0) * disp_size / 2.0);
 }
 
-static int	alloc_display_v(t_display *disp, int n_v)
-{
-	if (disp->v)
-		free(disp->v);
-	disp->v = malloc(sizeof(t_pixel) * n_v);
-	if (!disp->v)
-		return (-1);
-	disp->n_v = n_v;
-	return (0);
-}
-
 int	project_to_display(t_display *disp, t_camera *cam)
 {
 	int		i;
 
-	if (disp->n_v != cam->n_v && alloc_display_v(disp, cam->n_v))
-		return (-1);
+	if (disp->n_v != cam->n_v)
+	{
+		if (disp->v)
+			free(disp->v);
+		disp->v = malloc(sizeof(t_pixel) * cam->n_v);
+		if (!disp->v)
+			return (-1);
+		disp->n_v = cam->n_v;
+	}
 	i = 0;
 	while (i < cam->n_v)
 	{
-		if (!cam->is_visible[i])
-			continue;
-		disp->v[i].x = map_screen_to_display(cam->v[i].x, disp->w);
-		disp->v[i].y = map_screen_to_display(cam->v[i].y, disp->h);
-		if (cam->v[i].z < 0)
+		if (cam->is_visible[i])
+		{
+			disp->v[i].x = map_screen_to_display(cam->v[i].x, disp->w);
+			disp->v[i].y = map_screen_to_display(cam->v[i].y, disp->h);
 			disp->v[i].color = 0x00FFFFFF;
-		else
-			disp->v[i].color = 0x00000000;
+		}
 		i++;
 	}
 	return (0);

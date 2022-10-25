@@ -54,7 +54,10 @@ void	putframe_display(t_display *disp, t_camera *cam, t_map *map)
 	while (i < map->n_e)
 	{
 		if (!is_edge_visible(cam, map, i))
+		{
+			i++;
 			continue ;
+		}
 		putline_display(disp, disp->v[map->e[i].s], disp->v[map->e[i].e]);
 		i++;
 	}
