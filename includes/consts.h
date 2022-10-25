@@ -13,7 +13,6 @@
 #ifndef CONSTS_H
 # define CONSTS_H
 
-# define EPSILON 0.001
 # define GRID_SCALE 2.0
 # define SCREEN_W 1000
 # define SCREEN_H 1000

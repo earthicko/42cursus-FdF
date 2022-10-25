@@ -13,24 +13,6 @@
 #ifndef MLX_INTERFACE_H
 # define MLX_INTERFACE_H
 # include "projection.h"
-# ifdef BUILD_X11
-// X11 Keycodes
-#  define KEYCODE_Q 113
-#  define KEYCODE_W 119
-#  define KEYCODE_E 101
-#  define KEYCODE_A 97
-#  define KEYCODE_S 115
-#  define KEYCODE_D 100
-# endif
-# ifdef BUILD_APPKIT
-// AppKit Keycodes
-#  define KEYCODE_Q 12
-#  define KEYCODE_W 13
-#  define KEYCODE_E 14
-#  define KEYCODE_A 0
-#  define KEYCODE_S 1
-#  define KEYCODE_D 2
-# endif
 
 typedef struct s_state
 {
