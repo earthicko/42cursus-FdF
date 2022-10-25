@@ -1,12 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_interface.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:09:56 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:09:58 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MLX_INTERFACE_H
 # define MLX_INTERFACE_H
 # include "projection.h"
-# define KEYCODE_W 119
-# define KEYCODE_A 97
-# define KEYCODE_S 115
-# define KEYCODE_D 100
-# define KEYCODE_Q 113
-# define KEYCODE_E 101
+// # define KEYCODE_W 119
+// # define KEYCODE_A 97
+// # define KEYCODE_S 115
+// # define KEYCODE_D 100
+// # define KEYCODE_Q 113
+// # define KEYCODE_E 101
+# define KEYCODE_Q 12
+# define KEYCODE_W 13
+# define KEYCODE_E 14
+# define KEYCODE_A 0
+# define KEYCODE_S 1
+# define KEYCODE_D 2
 
 // mlx hook에 param으로 필요 변수를 한번에 전달하기 위한 구조체
 typedef struct s_state

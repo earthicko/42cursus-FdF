@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   state.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:10:52 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:10:53 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "mlx_interface.h"
 #include "display.h"
@@ -31,8 +43,6 @@ t_state	*create_state(char *map_path)
 	if (!state->map)
 		return (del_state(state));
 	center_map(state->map);
-	ft_printf("map lodaded\n");
-	print_map(state->map);
 	state->cam = create_camera(state->map);
 	if (!state->cam)
 		return (del_state(state));

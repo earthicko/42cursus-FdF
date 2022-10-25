@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_putbuffer.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:10:44 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:10:45 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "display.h"
 #include "geometry.h"
@@ -22,6 +34,7 @@ static int	end_buffer_display(t_display *disp)
 {
 	if (!disp->img)
 		return (-1);
+	mlx_clear_window(disp->mlx, disp->win);
 	mlx_put_image_to_window(disp->mlx, disp->win, disp->img, 0, 0);
 	mlx_destroy_image(disp->mlx, disp->img);
 	disp->img = NULL;
@@ -39,12 +52,8 @@ void	putframe_display(t_display *disp, t_map *map)
 	i = 0;
 	while (i < map->n_e)
 	{
-		s.x = disp->v[map->e[i].s].x;
-		s.y = disp->v[map->e[i].s].y;
-		e.x = disp->v[map->e[i].e].x;
-		e.y = disp->v[map->e[i].e].y;
-		s.color = 0xFFFFFFFF;
-		e.color = 0xFFFFFFFF;
+		ft_memcpy(&s, &disp->v[map->e[i].s], sizeof(t_pixel));
+		ft_memcpy(&e, &disp->v[map->e[i].e], sizeof(t_pixel));
 		putline_display(disp, s, e);
 		i++;
 	}

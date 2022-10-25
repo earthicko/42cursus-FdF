@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   projection.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:11:00 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:11:03 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "geometry.h"
 #include "display.h"
 #include "projection.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <limits.h>
 
-// map에 저장된 월드 좌표계 점을 카메라의 지역좌표계로 투영
 int	project_to_camera(t_camera *cam, t_map *map)
 {
 	int	i;
@@ -24,17 +38,25 @@ int	project_to_camera(t_camera *cam, t_map *map)
 		multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
 		cam->v[i].x = -cam->v[i].x / cam->v[i].z;
 		cam->v[i].y = -cam->v[i].y / cam->v[i].z;
+		printf("Projected to Camera divide by %f\n", cam->v[i].z);
+		printf("Projected to Cameta (%f, %f)\n", cam->v[i].x, cam->v[i].y);
 		i++;
 	}
 	return (0);
 }
 
-// 카메라에 저장된 (-1, 1) 범위의 점을 실제 디스플레이 크기로 매핑
+static int	map_screen_to_display(double src, double disp_size)
+{
+	if (src == INFINITY)
+		return (INT_MAX);
+	if (src == -INFINITY)
+		return (INT_MIN);
+	return ((src + 1.0) * disp_size / 2.0);
+}
+
 int	project_to_display(t_display *disp, t_camera *cam)
 {
 	int		i;
-	double	x;
-	double	y;
 
 	if (disp->n_v != cam->n_v)
 	{
@@ -48,10 +70,13 @@ int	project_to_display(t_display *disp, t_camera *cam)
 	i = 0;
 	while (i < cam->n_v)
 	{
-		x = (cam->v[i].x + 1.0) * disp->w / 2.0;
-		y = (cam->v[i].y + 1.0) * disp->h / 2.0;
-		disp->v[i].x = x;
-		disp->v[i].y = y;
+		disp->v[i].x = map_screen_to_display(cam->v[i].x, disp->w);
+		disp->v[i].y = map_screen_to_display(cam->v[i].y, disp->h);
+		printf("Projected to Display (%d, %d)\n", disp->v[i].x, disp->v[i].y);
+		if (cam->v[i].z < 0)
+			disp->v[i].color = 0x00FFFFFF;
+		else
+			disp->v[i].color = 0x00000000;
 		i++;
 	}
 	return (0);

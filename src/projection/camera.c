@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:10:58 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:10:59 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "consts.h"
 #include "projection.h"
@@ -6,24 +18,17 @@
 #include <stdlib.h>
 
 // 월드에 동일한 좌표계 생성, 반지름만큼 평행이동, 2번 회전
-static void	refresh_camera(t_camera *cam)
+void	refresh_camera(t_camera *cam)
 {
 	t_vertex	temp;
 
-	init_matrix44_identity(&cam->ctow);
-	init_matrix44_identity(&cam->wtoc);
-	rotate_m44_inplace(&cam->ctow, 1, M_PI_2);
-	temp.x = cam->radius;
+	temp.x = 0;
 	temp.y = 0;
-	temp.z = 0;
-	translate_m44_inplace(&cam->ctow, &temp);
-	rotate_m44_inplace(&cam->ctow, 1, cam->azimuth);
-	rotate_m44_inplace(&cam->ctow, 2, -cam->elevation);
-	rotate_m44_inplace(&cam->wtoc, 2, cam->elevation);
-	rotate_m44_inplace(&cam->wtoc, 1, -cam->azimuth);
-	temp.x = -cam->radius;
+	temp.z = -cam->radius;
+	init_matrix44_identity(&cam->wtoc);
+	rotate_m44_inplace(&cam->wtoc, 2, -cam->azi);
+	rotate_m44_inplace(&cam->wtoc, 0, -(M_PI_2 - cam->ele));
 	translate_m44_inplace(&cam->wtoc, &temp);
-	rotate_m44_inplace(&cam->wtoc, 1, -M_PI_2);
 }
 
 static double	get_initial_cam_radius(t_map *map)
@@ -33,7 +38,7 @@ static double	get_initial_cam_radius(t_map *map)
 
 	width = (map->x_bound[1] - map->x_bound[0]) / 2;
 	height = (map->y_bound[1] - map->y_bound[0]) / 2;
-	return (sqrt(width * width + height * height) * 8);
+	return (sqrt(width * width + height * height) * 2);
 }
 
 t_camera	*create_camera(t_map *map)
@@ -44,11 +49,19 @@ t_camera	*create_camera(t_map *map)
 	if (!cam)
 		return (NULL);
 	ft_memset(cam, 0, sizeof(t_camera));
-	cam->azimuth = M_PI / 4;
-	cam->elevation = M_PI / 4;
+	cam->azi = -M_PI / 4;
+	cam->ele = M_PI - M_PI / 4;
 	cam->radius = get_initial_cam_radius(map);
 	cam->step_d = cam->radius / 8;
 	cam->step_a = M_PI / STEP_PER_ROTATION;
+	ft_printf("Camera Initial Settings\n");
+	ft_printf("Azimuth: %d, Elevation: %d, Radius: %d\n",
+		(int)(cam->azi * 180 / M_PI),
+		(int)(cam->ele * 180 / M_PI),
+		(int)(cam->radius * 180 / M_PI));
+	ft_printf("Step of angle: %d, Step of distance: %d\n",
+		(int)(cam->step_a * 180 / M_PI),
+		(int)(cam->step_d));
 	refresh_camera(cam);
 	return (cam);
 }
@@ -58,22 +71,4 @@ void	del_camera(t_camera *cam)
 	if (cam->v)
 		free(cam->v);
 	free(cam);
-}
-
-void	increment_e_camera(t_camera *cam, int dir)
-{
-	cam->elevation += cam->step_a * dir;
-	refresh_camera(cam);
-}
-
-void	increment_a_camera(t_camera *cam, int dir)
-{
-	cam->azimuth += cam->step_a * dir;
-	refresh_camera(cam);
-}
-
-void	increment_r_camera(t_camera *cam, int dir)
-{
-	cam->radius += cam->step_d * dir;
-	refresh_camera(cam);
 }

@@ -31,6 +31,7 @@ SRCNAME			= \
 				src/geometry/matrix \
 				src/geometry/map \
 				src/projection/camera \
+				src/projection/camera_increment \
 				src/projection/projection \
 				src/display/display \
 				src/display/display_putline \

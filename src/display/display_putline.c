@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_putline.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:10:45 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:10:46 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 #include "display.h"
+#include <limits.h>
 
 static unsigned int	avg_color(unsigned int a, unsigned int b)
 {
@@ -53,10 +67,26 @@ static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
 	putline_display_recur(disp, m, e);
 }
 
+static int	is_inf(t_pixel *s, t_pixel *e)
+{
+	ft_printf("s: %d\n", s->x);
+	if (s->x == INT_MAX || s->x == INT_MIN)
+		return (1);
+	if (s->y == INT_MAX || s->y == INT_MIN)
+		return (1);
+	if (e->x == INT_MAX || e->x == INT_MIN)
+		return (1);
+	if (e->y == INT_MAX || e->y == INT_MIN)
+		return (1);
+	return (0);
+}
+
 int	putline_display(t_display *disp, t_pixel s, t_pixel e)
 {
 	if (!disp->img)
 		return (-1);
+	if (is_inf(&s, &e))
+		return (0);
 	putpixel_display(disp, s);
 	putpixel_display(disp, e);
 	putline_display_recur(disp, s, e);

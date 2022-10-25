@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keyboard.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:10:50 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:10:51 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 #include "projection.h"
 #include "mlx_interface.h"
 #include "debug.h"
@@ -8,6 +21,7 @@ int	mlx_key_interface(int keycode, void *param)
 {
 	t_state	*state;
 
+	ft_printf("keycode %d\n", keycode);
 	state = param;
 	if (keycode == KEYCODE_W)
 		increment_e_camera(state->cam, 1);

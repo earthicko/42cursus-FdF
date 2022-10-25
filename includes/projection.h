@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   projection.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 16:10:01 by donghyle          #+#    #+#             */
+/*   Updated: 2022/10/25 16:10:04 by donghyle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PROJECTION_H
 # define PROJECTION_H
 # include "geometry.h"
@@ -6,12 +18,11 @@
 // camera to world, world to camera 행렬 2개
 typedef struct s_camera
 {
-	t_matrix44	ctow;
 	t_matrix44	wtoc;
 	int			n_v;
 	t_vertex	*v;
-	double		azimuth;
-	double		elevation;
+	double		azi;
+	double		ele;
 	double		radius;
 	double		step_a;
 	double		step_d;
@@ -20,6 +31,7 @@ typedef struct s_camera
 
 t_camera	*create_camera(t_map *map);
 void		del_camera(t_camera *cam);
+void		refresh_camera(t_camera *cam);
 void		increment_e_camera(t_camera *cam, int dir);
 void		increment_a_camera(t_camera *cam, int dir);
 void		increment_r_camera(t_camera *cam, int dir);
