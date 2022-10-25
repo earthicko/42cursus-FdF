@@ -12,10 +12,7 @@
 
 #include "libft.h"
 #include "display.h"
-#include "geometry.h"
 #include "mlx.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 t_display	*del_display(t_display *disp)
 {

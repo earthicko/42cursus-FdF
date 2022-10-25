@@ -46,6 +46,9 @@ static void	determine_xyz_bound_grid_size(t_map *map)
 	map->x_bound[1] = map->grid_size * (map->n_col - 1);
 	map->y_bound[0] = 0;
 	map->y_bound[1] = map->grid_size * (map->n_row - 1);
+	map->span = map->x_bound[1];
+	if (map->y_bound[1] > map->span)
+		map->span = map->y_bound[1];
 }
 
 static void	fill_xy(t_map *map)

@@ -11,13 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "consts.h"
 #include "projection.h"
-#include "geometry.h"
 #include <math.h>
-#include <stdlib.h>
 
-// 월드에 동일한 좌표계 생성, 반지름만큼 평행이동, 2번 회전
 void	refresh_camera(t_camera *cam)
 {
 	t_vertex	temp;
@@ -52,16 +48,11 @@ t_camera	*create_camera(t_map *map)
 	cam->azi = -M_PI / 4;
 	cam->ele = M_PI - M_PI / 4;
 	cam->radius = get_initial_cam_radius(map);
-	cam->step_d = cam->radius / 8;
-	cam->step_a = M_PI / STEP_PER_ROTATION;
 	ft_printf("Camera Initial Settings\n");
 	ft_printf("Azimuth: %d, Elevation: %d, Radius: %d\n",
 		(int)(cam->azi * 180 / M_PI),
 		(int)(cam->ele * 180 / M_PI),
 		(int)(cam->radius * 180 / M_PI));
-	ft_printf("Step of angle: %d, Step of distance: %d\n",
-		(int)(cam->step_a * 180 / M_PI),
-		(int)(cam->step_d));
 	refresh_camera(cam);
 	return (cam);
 }

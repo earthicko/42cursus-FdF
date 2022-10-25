@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include "geometry.h"
-#include <stdlib.h>
 
 t_map	*del_map(t_map *map)
 {
@@ -39,6 +38,7 @@ t_map	*create_map(void)
 	map->y_bound[1] = 0.0;
 	map->z_bound[0] = 0.0;
 	map->z_bound[1] = 0.0;
+	map->span = 0.0;
 	return (map);
 }
 

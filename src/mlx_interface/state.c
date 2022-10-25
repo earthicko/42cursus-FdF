@@ -13,11 +13,8 @@
 #include "libft.h"
 #include "mlx_interface.h"
 #include "display.h"
-#include "geometry.h"
 #include "consts.h"
 #include "parser.h"
-#include "debug.h"
-#include <stdlib.h>
 
 t_state	*del_state(t_state *state)
 {

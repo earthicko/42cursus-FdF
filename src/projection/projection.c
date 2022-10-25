@@ -10,12 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry.h"
-#include "display.h"
 #include "projection.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include <limits.h>
 
@@ -36,10 +32,8 @@ int	project_to_camera(t_camera *cam, t_map *map)
 	while (i < map->n_v)
 	{
 		multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
-		cam->v[i].x = -cam->v[i].x / cam->v[i].z;
-		cam->v[i].y = -cam->v[i].y / cam->v[i].z;
-		printf("Projected to Camera divide by %f\n", cam->v[i].z);
-		printf("Projected to Cameta (%f, %f)\n", cam->v[i].x, cam->v[i].y);
+		cam->v[i].x = cam->v[i].x / map->span;
+		cam->v[i].y = cam->v[i].y / map->span;
 		i++;
 	}
 	return (0);
@@ -72,11 +66,6 @@ int	project_to_display(t_display *disp, t_camera *cam)
 	{
 		disp->v[i].x = map_screen_to_display(cam->v[i].x, disp->w);
 		disp->v[i].y = map_screen_to_display(cam->v[i].y, disp->h);
-		printf("Projected to Display (%d, %d)\n", disp->v[i].x, disp->v[i].y);
-		if (cam->v[i].z < 0)
-			disp->v[i].color = 0x00FFFFFF;
-		else
-			disp->v[i].color = 0x00000000;
 		i++;
 	}
 	return (0);

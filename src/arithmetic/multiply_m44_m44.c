@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "geometry.h"
 
 void	multiply_m44_m44(t_matrix44 *m_out, t_matrix44 *m_a, t_matrix44 *m_b)
@@ -36,12 +35,4 @@ void	multiply_m44_m44(t_matrix44 *m_out, t_matrix44 *m_a, t_matrix44 *m_b)
 		}
 		row++;
 	}
-}
-
-void	multiply_m44_m44_inplace(t_matrix44 *m_out, t_matrix44 *m)
-{
-	t_matrix44	temp;
-
-	multiply_m44_m44(&temp, m, m_out);
-	ft_memcpy(m_out, &temp, sizeof(t_matrix44));
 }

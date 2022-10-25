@@ -18,10 +18,8 @@ typedef struct s_pixel
 {
 	int				x;
 	int				y;
-	unsigned int	color;
 }	t_pixel;
 
-// mlx와 인터페이스 시 필요한 img 관련 int 3개, 각종 포인터, 디스플레이 속성
 typedef struct s_display
 {
 	int		bpp;

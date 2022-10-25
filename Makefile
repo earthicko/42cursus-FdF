@@ -1,13 +1,22 @@
 NAME			= fdf
-BONUS			= 
+BONUS			= fdf
 
 LIBFT_DIR		= libft
 LIBFT			= libft.a
 LINK_LIBFT		= -L $(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
 INC_DIR_LIBFT	= -I $(LIBFT_DIR)/includes
 
-LINK_MLX		= -L . -lmlx -lXext -lX11
-LINK_MLX_		= -L . -lmlx -framework OpenGL -framework AppKit
+BUILD_DEBUG		= 
+BUILD_TARGET	= APPKIT
+
+ifeq ($(BUILD_TARGET), APPKIT)
+	LINK_MLX	= -L . -lmlx -framework OpenGL -framework AppKit
+	DEF_TARGET	= -D BUILD_APPKIT
+endif
+ifeq ($(BUILD_TARGET), X11)
+	LINK_MLX	= -L . -lmlx -lXext -lX11
+	DEF_TARGET	= -D BUILD_X11
+endif
 
 LINK_LIBM		= -lm
 
@@ -16,40 +25,56 @@ LINK_LIBS		= $(LINK_LIBFT) $(LINK_MLX) $(LINK_LIBM)
 INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
 
 SRCNAME			= \
-				src/debug/debug_matrix \
-				src/debug/debug_camera \
-				src/debug/debug_map \
-				src/parser/parser \
-				src/parser/parse_map_info \
-				src/parser/parse_map_content \
-				src/arithmetic/epsilon \
-				src/arithmetic/multiply_m44_m44 \
-				src/arithmetic/multiply_vertex_m44 \
-				src/arithmetic/rotate_m44 \
-				src/arithmetic/scale_m44 \
-				src/arithmetic/translate_m44 \
-				src/geometry/matrix \
-				src/geometry/map \
-				src/projection/camera \
-				src/projection/camera_increment \
-				src/projection/projection \
-				src/display/display \
-				src/display/display_putline \
-				src/display/display_putbuffer \
-				src/mlx_interface/keyboard \
-				src/mlx_interface/state \
-				src/fdf
+				parser/parser \
+				parser/parse_map_info \
+				parser/parse_map_content \
+				arithmetic/multiply_m44_m44 \
+				arithmetic/multiply_vertex_m44 \
+				arithmetic/rotate_m44 \
+				arithmetic/translate_m44 \
+				geometry/matrix \
+				geometry/map \
+				projection/camera \
+				projection/projection \
+				display/display \
+				display/display_putline \
+				display/display_putbuffer \
+				mlx_interface/state \
+				fdf
 
 SRCNAME_BONUS	= \
+				debug/debug_matrix \
+				debug/debug_camera \
+				debug/debug_map \
+				parser/parser \
+				parser/parse_map_info \
+				parser/parse_map_content \
+				arithmetic/epsilon \
+				arithmetic/multiply_m44_m44 \
+				arithmetic/multiply_vertex_m44 \
+				arithmetic/rotate_m44 \
+				arithmetic/scale_m44 \
+				arithmetic/translate_m44 \
+				geometry/matrix \
+				geometry/map \
+				projection/camera \
+				projection/camera_increment \
+				projection/projection \
+				display/display \
+				display/display_putline \
+				display/display_putbuffer \
+				mlx_interface/keyboard \
+				mlx_interface/state \
+				fdf
 
-SRC				= $(addsuffix .c, $(SRCNAME))
-OBJ				= $(addsuffix .o, $(SRCNAME))
-SRC_BONUS		= $(addsuffix .c, $(SRCNAME_BONUS))
-OBJ_BONUS		= $(addsuffix .o, $(SRCNAME_BONUS))
+SRC				= $(addprefix src/, $(addsuffix .c, $(SRCNAME)))
+OBJ				= $(addprefix src/, $(addsuffix .o, $(SRCNAME)))
+SRC_BONUS		= $(addprefix src_bonus/, $(addsuffix .c, $(SRCNAME_BONUS)))
+OBJ_BONUS		= $(addprefix src_bonus/, $(addsuffix .o, $(SRCNAME_BONUS)))
 
 RM				= rm -f
 CC				= gcc
-CFLAGS			= -g -Wall -Werror -Wextra
+CFLAGS			= $(BUILD_DEBUG) -Wall -Werror -Wextra $(DEF_TARGET)
 
 all : $(NAME)
 
