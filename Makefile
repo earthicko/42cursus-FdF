@@ -19,7 +19,6 @@ SRCNAME			= \
 				src/debug/debug_matrix \
 				src/debug/debug_camera \
 				src/debug/debug_map \
-				src/test_drivers/make_cube \
 				src/parser/parser \
 				src/parser/parse_map_info \
 				src/parser/parse_map_content \

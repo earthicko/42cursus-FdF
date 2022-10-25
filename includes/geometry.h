@@ -51,4 +51,5 @@ void		rotate_m44_inplace(t_matrix44 *m, int xyz, double theta);
 
 t_map		*create_map(void);
 t_map		*del_map(t_map *map);
+void		center_map(t_map *map);
 #endif

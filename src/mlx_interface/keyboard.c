@@ -17,6 +17,10 @@ int	mlx_key_interface(int keycode, void *param)
 		increment_e_camera(state->cam, -1);
 	else if (keycode == KEYCODE_D)
 		increment_a_camera(state->cam, 1);
+	else if (keycode == KEYCODE_Q)
+		increment_r_camera(state->cam, -1);
+	else if (keycode == KEYCODE_E)
+		increment_r_camera(state->cam, 1);
 	if (refresh_frame(param))
 	{
 		del_state(state);

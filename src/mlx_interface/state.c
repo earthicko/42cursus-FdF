@@ -3,7 +3,8 @@
 #include "display.h"
 #include "geometry.h"
 #include "consts.h"
-#include "test.h"
+#include "parser.h"
+#include "debug.h"
 #include <stdlib.h>
 
 t_state	*del_state(t_state *state)
@@ -18,7 +19,7 @@ t_state	*del_state(t_state *state)
 	return (NULL);
 }
 
-t_state	*create_state(void)
+t_state	*create_state(char *map_path)
 {
 	t_state	*state;
 
@@ -26,10 +27,13 @@ t_state	*create_state(void)
 	if (!state)
 		return (NULL);
 	ft_memset(state, 0, sizeof(t_state));
-	state->map = make_cube();
+	state->map = parse_map(map_path);
 	if (!state->map)
 		return (del_state(state));
-	state->cam = create_camera();
+	center_map(state->map);
+	ft_printf("map lodaded\n");
+	print_map(state->map);
+	state->cam = create_camera(state->map);
 	if (!state->cam)
 		return (del_state(state));
 	state->disp = create_display(SCREEN_W, SCREEN_H,

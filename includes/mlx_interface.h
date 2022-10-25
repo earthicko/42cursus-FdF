@@ -16,7 +16,7 @@ typedef struct s_state
 	t_display	*disp;
 }	t_state;
 
-t_state	*create_state(void);
+t_state	*create_state(char *map_path);
 t_state	*del_state(t_state *state);
 int		refresh_frame(t_state *state);
 int		mlx_key_interface(int keycode, void *param);

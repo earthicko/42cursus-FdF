@@ -29,3 +29,27 @@ t_map	*create_map(void)
 	map->z_bound[1] = 0.0;
 	return (map);
 }
+
+void	center_map(t_map *map)
+{
+	double	center[3];
+	int		i;
+
+	center[0] = (map->x_bound[1] + map->x_bound[0]) / 2;
+	center[1] = (map->y_bound[1] + map->y_bound[0]) / 2;
+	center[2] = (map->z_bound[1] + map->z_bound[0]) / 2;
+	i = 0;
+	while (i < map->n_v)
+	{
+		map->v[i].x -= center[0];
+		map->v[i].y -= center[1];
+		map->v[i].z -= center[2];
+		i++;
+	}
+	map->x_bound[0] -= center[0];
+	map->x_bound[1] -= center[0];
+	map->y_bound[0] -= center[1];
+	map->y_bound[1] -= center[1];
+	map->z_bound[0] -= center[2];
+	map->z_bound[1] -= center[2];
+}
