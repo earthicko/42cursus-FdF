@@ -22,7 +22,7 @@ LINK_LIBM		= -lm
 
 LINK_LIBS		= $(LINK_LIBFT) $(LINK_MLX) $(LINK_LIBM)
 
-INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
+INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes -I includes_bonus
 
 SRCNAME			= \
 				parser/parser \
@@ -43,29 +43,25 @@ SRCNAME			= \
 				fdf
 
 SRCNAME_BONUS	= \
-				debug/debug_matrix \
-				debug/debug_camera \
-				debug/debug_map \
-				parser/parser \
-				parser/parse_map_info \
-				parser/parse_map_content \
-				arithmetic/epsilon \
-				arithmetic/multiply_m44_m44 \
-				arithmetic/multiply_vertex_m44 \
-				arithmetic/rotate_m44 \
-				arithmetic/scale_m44 \
-				arithmetic/translate_m44 \
-				geometry/matrix \
-				geometry/map \
-				projection/camera \
-				projection/camera_increment \
-				projection/projection \
-				display/display \
-				display/display_putline \
-				display/display_putbuffer \
-				mlx_interface/keyboard \
-				mlx_interface/state \
-				fdf
+				parser/parser_bonus \
+				parser/parse_map_info_bonus \
+				parser/parse_map_content_bonus \
+				arithmetic/multiply_m44_m44_bonus \
+				arithmetic/multiply_vertex_m44_bonus \
+				arithmetic/rotate_m44_bonus \
+				arithmetic/scale_m44_bonus \
+				arithmetic/translate_m44_bonus \
+				geometry/matrix_bonus \
+				geometry/map_bonus \
+				projection/camera_bonus \
+				projection/camera_increment_bonus \
+				projection/projection_bonus \
+				display/display_bonus \
+				display/display_putline_bonus \
+				display/display_putbuffer_bonus \
+				mlx_interface/keyboard_bonus \
+				mlx_interface/state_bonus \
+				fdf_bonus
 
 SRC				= $(addprefix src/, $(addsuffix .c, $(SRCNAME)))
 OBJ				= $(addprefix src/, $(addsuffix .o, $(SRCNAME)))
