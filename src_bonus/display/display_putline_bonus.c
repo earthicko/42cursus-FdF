@@ -13,6 +13,8 @@
 #include "display_bonus.h"
 #include <limits.h>
 
+#include <stdio.h>
+
 static unsigned int	avg_color(unsigned int a, unsigned int b)
 {
 	unsigned int	out;
@@ -25,8 +27,10 @@ static unsigned int	avg_color(unsigned int a, unsigned int b)
 	{
 		col[0] = (unsigned char)(a >> (i * 8));
 		col[1] = (unsigned char)(b >> (i * 8));
-		col[2] = ((a + b) / 2) << (i * 8);
+		col[2] = ((col[0] + col[1]) / 2) << (i * 8);
 		out |= col[2];
+		// printf("col: %d, %d, %d\n", col[0], col[1], col[2]);
+		// printf("out: %x\n", out);
 		i++;
 	}
 	return (out);

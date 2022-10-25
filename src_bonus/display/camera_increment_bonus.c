@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "projection_bonus.h"
+#include "display_bonus.h"
 #include <math.h>
 
 void	increment_e_camera(t_camera *cam, int dir)

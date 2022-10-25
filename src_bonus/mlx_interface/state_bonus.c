@@ -57,6 +57,6 @@ int	refresh_frame(t_state *state)
 		return (-1);
 	if (project_to_display(state->disp, state->cam))
 		return (-1);
-	putframe_display(state->disp, state->map);
+	putframe_display(state->disp, state->cam, state->map);
 	return (0);
 }

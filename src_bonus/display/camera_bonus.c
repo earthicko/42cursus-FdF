@@ -12,7 +12,7 @@
 
 #include "libft.h"
 #include "consts_bonus.h"
-#include "projection_bonus.h"
+#include "display_bonus.h"
 #include <math.h>
 
 void	refresh_camera(t_camera *cam)

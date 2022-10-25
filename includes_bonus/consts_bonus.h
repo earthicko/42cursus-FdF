@@ -15,6 +15,7 @@
 
 # define STEP_PER_ROTATION 24
 # define GRID_SCALE 2.0
+# define CLIPPING_Z_D 0.5
 # define SCREEN_W 1000
 # define SCREEN_H 1000
 # define SCREEN_TITLE "FdF"

@@ -12,7 +12,7 @@
 
 #ifndef MLX_INTERFACE_BONUS_H
 # define MLX_INTERFACE_BONUS_H
-# include "projection_bonus.h"
+# include "display_bonus.h"
 # ifdef BUILD_X11
 // X11 Keycodes
 #  define KEYCODE_Q 113

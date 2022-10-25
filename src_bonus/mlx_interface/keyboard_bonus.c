@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "projection_bonus.h"
 #include "mlx_interface_bonus.h"
 #include <stdlib.h>
 

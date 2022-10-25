@@ -53,9 +53,9 @@ SRCNAME_BONUS	= \
 				arithmetic/translate_m44_bonus \
 				geometry/matrix_bonus \
 				geometry/map_bonus \
-				projection/camera_bonus \
-				projection/camera_increment_bonus \
-				projection/projection_bonus \
+				display/camera_bonus \
+				display/camera_increment_bonus \
+				display/projection_bonus \
 				display/display_bonus \
 				display/display_putline_bonus \
 				display/display_putbuffer_bonus \
