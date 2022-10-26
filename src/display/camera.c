@@ -37,13 +37,13 @@ static void	initialize_cam(t_camera *cam, t_map *map)
 
 	width = (map->x_bound[1] - map->x_bound[0]) / 2;
 	height = (map->y_bound[1] - map->y_bound[0]) / 2;
-	radius = sqrt(width * width + height * height) * 2;
+	radius = sqrt(pow(width, 2) + pow(height, 2)) * 2;
 	cam->azi = CAM_AZIMUTH_DEFAULT;
 	cam->ele = M_PI - CAM_ELEVATION_DEFAULT;
-	cam->orig.x = radius * cos(M_PI - cam->ele) * cos(cam->azi);
+	cam->orig.x = -radius * cos(cam->ele) * cos(cam->azi);
 	cam->orig.y = radius * cos(cam->ele) * sin(cam->azi);
-	cam->orig.z = -radius * sin(cam->ele);
-	cam->isometric_d = map->span;
+	cam->orig.z = -radius * sin(cam->ele) / 1.5;
+	cam->isometric_d = map->span / 1.5;
 }
 
 t_camera	*create_camera(t_map *map)

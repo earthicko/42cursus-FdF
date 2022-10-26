@@ -82,7 +82,7 @@ $(NAME) : $(LIBFT) $(LIBMLX) $(OBJ)
 	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBS) -o $(NAME)
 
 bonus : $(LIBFT) $(LIBMLX) $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ_BONUS) $(LINK_LIBS) -o $(BONUS)
+	@$(CC) $(CFLAGS) $(INC_DIR_BONUS) $(OBJ_BONUS) $(LINK_LIBS) -o $(BONUS)
 
 $(LIBFT) :
 	make -s -C $(LIBFT_DIR)/
@@ -90,8 +90,11 @@ $(LIBFT) :
 $(LIBMLX) :
 	make -s -C $(LIBMLX_DIR)/
 
-%.o : %.c
+src/%.o : src/%.c
 	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
+
+src_bonus/%.o : src_bonus/%.c
+	$(CC) $(CFLAGS) $(INC_DIR_BONUS) -c $< -o $@
 
 clean :
 	$(RM) $(OBJ) $(OBJ_BONUS) $(NAME).o $(BONUS).o
