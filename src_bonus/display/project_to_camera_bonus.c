@@ -14,7 +14,6 @@
 #include "display_bonus.h"
 #include <stdlib.h>
 #include <limits.h>
-#include <math.h>
 
 static int	alloc_camera_v(t_camera *cam, int n_v)
 {
@@ -73,7 +72,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 
 	if (cam->n_v != map->n_v && alloc_camera_v(cam, map->n_v))
 		return (-1);
-	cam->max_z = map->span / (M_PI * 2);
+	cam->max_z = map->grid_size * 150;
 	i = 0;
 	while (i < map->n_v)
 	{
