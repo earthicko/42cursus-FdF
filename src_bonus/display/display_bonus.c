@@ -12,7 +12,7 @@
 
 #include "libft.h"
 #include "display_bonus.h"
-#include "mlx_bonus.h"
+#include "mlx.h"
 
 t_display	*del_display(t_display *disp)
 {

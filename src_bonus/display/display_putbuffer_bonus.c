@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "display_bonus.h"
-#include "mlx_bonus.h"
+#include "mlx.h"
 #include <stddef.h>
 
 static int	start_buffer_display(t_display *disp)

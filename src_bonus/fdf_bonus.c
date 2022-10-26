@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_bonus.h"
+#include "mlx.h"
 #include "mlx_interface_bonus.h"
 #include <stdlib.h>
 
