@@ -13,35 +13,20 @@
 #ifndef MLX_INTERFACE_BONUS_H
 # define MLX_INTERFACE_BONUS_H
 # include "display_bonus.h"
-# if !defined(BUILD_X11) && !defined(BUILD_APPKIT)
-#  define BUILD_APPKIT
-# endif
-# ifdef BUILD_X11
-// X11 Keycodes
-#  define KEYCODE_Q 113
-#  define KEYCODE_W 119
-#  define KEYCODE_E 101
-#  define KEYCODE_A 97
-#  define KEYCODE_S 115
-#  define KEYCODE_D 100
-# endif
-# ifdef BUILD_APPKIT
-// AppKit Keycodes
-#  define KEYCODE_ESC 53
-#  define KEYCODE_Q 12
-#  define KEYCODE_W 13
-#  define KEYCODE_E 14
-#  define KEYCODE_A 0
-#  define KEYCODE_S 1
-#  define KEYCODE_D 2
-#  define KEYCODE_I 34
-#  define KEYCODE_J 38
-#  define KEYCODE_K 40
-#  define KEYCODE_L 37
-#  define KEYCODE_SP 49
-#  define KEYCODE_PLUS 69
-#  define KEYCODE_MINUS 78
-# endif
+# define KEYCODE_ESC 53
+# define KEYCODE_Q 12
+# define KEYCODE_W 13
+# define KEYCODE_E 14
+# define KEYCODE_A 0
+# define KEYCODE_S 1
+# define KEYCODE_D 2
+# define KEYCODE_I 34
+# define KEYCODE_J 38
+# define KEYCODE_K 40
+# define KEYCODE_L 37
+# define KEYCODE_SP 49
+# define KEYCODE_PLUS 69
+# define KEYCODE_MINUS 78
 
 enum	e_appkitevent{
 	ON_KEYDOWN = 2,

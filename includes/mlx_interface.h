@@ -13,16 +13,7 @@
 #ifndef MLX_INTERFACE_H
 # define MLX_INTERFACE_H
 # include "display.h"
-# if !defined(BUILD_X11) && !defined(BUILD_APPKIT)
-#  define BUILD_APPKIT
-# endif
-# ifdef BUILD_X11
-// X11 Keycodes
-# endif
-# ifdef BUILD_APPKIT
-// AppKit Keycodes
-#  define KEYCODE_ESC 53
-# endif
+# define KEYCODE_ESC 53
 
 typedef struct s_state
 {

@@ -8,24 +8,12 @@ INC_DIR_LIBFT	= -I $(LIBFT_DIR)/includes
 
 LIBMLX_DIR		= minilibx_macos
 LIBMLX			= libmlx.a
-LINK_LIBMLX		= -L $(LIBMLX_DIR) $(LIBMLX_DIR)/$(LIBMLX)
+LINK_LIBMLX		= -L $(LIBMLX_DIR) $(LIBMLX_DIR)/$(LIBMLX) -framework OpenGL -framework AppKit
 INC_DIR_LIBMLX	= -I $(LIBMLX_DIR)
-
-BUILD_DEBUG		= 
-BUILD_TARGET	= APPKIT
-
-ifeq ($(BUILD_TARGET), APPKIT)
-	LINK_MLX	= $(LINK_LIBMLX) -framework OpenGL -framework AppKit
-	DEF_TARGET	= -D BUILD_APPKIT
-endif
-ifeq ($(BUILD_TARGET), X11)
-	LINK_MLX	= $(LINK_LIBMLX) -lXext -lX11
-	DEF_TARGET	= -D BUILD_X11
-endif
 
 LINK_LIBM		= -lm
 
-LINK_LIBS		= $(LINK_LIBFT) $(LINK_MLX) $(LINK_LIBM)
+LINK_LIBS		= $(LINK_LIBFT) $(LINK_LIBMLX) $(LINK_LIBM)
 
 INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
 INC_DIR_BONUS	= -I . $(INC_DIR_LIBFT) -I includes_bonus
@@ -74,7 +62,7 @@ OBJ_BONUS		= $(addprefix src_bonus/, $(addsuffix .o, $(SRCNAME_BONUS)))
 
 RM				= rm -f
 CC				= gcc
-CFLAGS			= $(BUILD_DEBUG) -Wall -Werror -Wextra $(DEF_TARGET)
+CFLAGS			= -Wall -Werror -Wextra
 
 all : $(NAME)
 
