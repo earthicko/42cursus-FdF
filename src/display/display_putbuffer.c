@@ -36,16 +36,7 @@ static int	end_buffer_display(t_display *disp)
 	return (0);
 }
 
-static int	is_edge_visible(t_camera *cam, t_map *map, int i)
-{
-	if (!cam->is_visible[map->e[i].s])
-		return (0);
-	if (!cam->is_visible[map->e[i].e])
-		return (0);
-	return (1);
-}
-
-void	putframe_display(t_display *disp, t_camera *cam, t_map *map)
+void	putframe_display(t_display *disp, t_map *map)
 {
 	int		i;
 
@@ -53,11 +44,6 @@ void	putframe_display(t_display *disp, t_camera *cam, t_map *map)
 	i = 0;
 	while (i < map->n_e)
 	{
-		if (!is_edge_visible(cam, map, i))
-		{
-			i++;
-			continue ;
-		}
 		putline_display(disp, disp->v[map->e[i].s], disp->v[map->e[i].e]);
 		i++;
 	}

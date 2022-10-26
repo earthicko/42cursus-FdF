@@ -12,25 +12,6 @@
 
 #include "display.h"
 
-static unsigned int	avg_color(unsigned int a, unsigned int b)
-{
-	unsigned int	out;
-	int				i;
-	unsigned int	col[3];
-
-	out = 0;
-	i = 0;
-	while (i < 4)
-	{
-		col[0] = (unsigned char)(a >> (i * 8));
-		col[1] = (unsigned char)(b >> (i * 8));
-		col[2] = ((col[0] + col[1]) / 2) << (i * 8);
-		out |= col[2];
-		i++;
-	}
-	return (out);
-}
-
 static void	putpixel_display(t_display *disp, t_pixel p)
 {
 	int	o_height;
@@ -42,7 +23,7 @@ static void	putpixel_display(t_display *disp, t_pixel p)
 		return ;
 	o_height = disp->nbytes * p.y;
 	o_width = p.x * disp->bpp / 8;
-	*(int *)(disp->img_addr + o_height + o_width) = p.color;
+	*(int *)(disp->img_addr + o_height + o_width) = 0x00FFFFFF;
 }
 
 static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
@@ -57,7 +38,6 @@ static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
 		return ;
 	m.x = (s.x + e.x) / 2;
 	m.y = (s.y + e.y) / 2;
-	m.color = avg_color(s.color, e.color);
 	putpixel_display(disp, s);
 	putpixel_display(disp, e);
 	putpixel_display(disp, m);

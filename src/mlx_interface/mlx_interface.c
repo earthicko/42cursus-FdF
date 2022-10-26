@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state.c                                            :+:      :+:    :+:   */
+/*   mlx_interface.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,6 +14,16 @@
 #include "consts.h"
 #include "parser.h"
 #include "mlx_interface.h"
+
+int	mlx_key_interface(int k, void *param)
+{
+	if (k == KEYCODE_ESC)
+	{
+		del_state((t_state *)param);
+		exit(0);
+	}
+	return (0);
+}
 
 t_state	*del_state(t_state *state)
 {
@@ -57,6 +67,6 @@ int	refresh_frame(t_state *state)
 		return (-1);
 	if (project_to_display(state->disp, state->cam))
 		return (-1);
-	putframe_display(state->disp, state->cam, state->map);
+	putframe_display(state->disp, state->map);
 	return (0);
 }

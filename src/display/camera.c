@@ -40,12 +40,9 @@ static void	initialize_cam(t_camera *cam, t_map *map)
 	radius = sqrt(width * width + height * height) * 2;
 	cam->azi = CAM_AZIMUTH_DEFAULT;
 	cam->ele = M_PI - CAM_ELEVATION_DEFAULT;
-	cam->step_d = radius / STEP_PER_DISTANCE;
-	cam->step_a = M_PI / STEP_PER_ROTATION;
 	cam->orig.x = radius * cos(M_PI - cam->ele) * cos(cam->azi);
 	cam->orig.y = radius * cos(cam->ele) * sin(cam->azi);
 	cam->orig.z = -radius * sin(cam->ele);
-	cam->min_z = __DBL_MAX__;
 	cam->isometric_d = map->span;
 }
 
@@ -58,10 +55,6 @@ t_camera	*create_camera(t_map *map)
 		return (NULL);
 	ft_memset(cam, 0, sizeof(t_camera));
 	initialize_cam(cam, map);
-	ft_printf("Camera Initial Settings\n");
-	ft_printf("Step of angle: %d, Step of distance: %d\n",
-		(int)(cam->step_a * 180 / M_PI),
-		(int)(cam->step_d));
 	refresh_camera(cam);
 	return (cam);
 }
@@ -71,12 +64,4 @@ void	del_camera(t_camera *cam)
 	if (cam->v)
 		free(cam->v);
 	free(cam);
-}
-
-void	switch_projection_mode(t_camera *cam)
-{
-	cam->mode++;
-	if (cam->mode > CAMMODE_MAX)
-		cam->mode = 0;
-	ft_printf("Camera projection mode switched to %d\n", cam->mode);
 }

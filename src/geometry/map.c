@@ -65,17 +65,3 @@ void	center_map(t_map *map)
 	map->z_bound[0] -= center[2];
 	map->z_bound[1] -= center[2];
 }
-
-void	scale_z_map(t_map *map, double scale)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->n_v)
-	{
-		map->v[i].z *= scale;
-		i++;
-	}
-	map->z_bound[0] *= scale;
-	map->z_bound[1] *= scale;
-}

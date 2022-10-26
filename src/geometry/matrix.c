@@ -37,14 +37,3 @@ void	init_matrix44_identity(t_matrix44 *m)
 		i++;
 	}
 }
-
-t_matrix44	*create_matrix44(void)
-{
-	t_matrix44	*m;
-
-	m = (t_matrix44 *)malloc(sizeof(t_matrix44));
-	if (!m)
-		return (NULL);
-	init_matrix44_zero(m);
-	return (m);
-}

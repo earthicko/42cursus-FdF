@@ -40,14 +40,11 @@ SRCNAME			= \
 				geometry/matrix \
 				geometry/map \
 				display/camera \
-				display/camera_increment \
-				display/project_to_camera \
-				display/project_to_display \
+				display/projection \
 				display/display \
 				display/display_putline \
 				display/display_putbuffer \
-				mlx_interface/keyboard \
-				mlx_interface/state \
+				mlx_interface/mlx_interface \
 				fdf
 
 SRCNAME_BONUS	= \
