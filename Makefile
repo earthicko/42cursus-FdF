@@ -6,15 +6,20 @@ LIBFT			= libft.a
 LINK_LIBFT		= -L $(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
 INC_DIR_LIBFT	= -I $(LIBFT_DIR)/includes
 
+LIBMLX_DIR		= minilibx_macos
+LIBMLX			= libmlx.a
+LINK_LIBMLX		= -L $(LIBMLX_DIR) $(LIBMLX_DIR)/$(LIBMLX)
+INC_DIR_LIBMLX	= -I $(LIBMLX_DIR)
+
 BUILD_DEBUG		= 
 BUILD_TARGET	= APPKIT
 
 ifeq ($(BUILD_TARGET), APPKIT)
-	LINK_MLX	= -L . -lmlx -framework OpenGL -framework AppKit
+	LINK_MLX	= $(LINK_LIBMLX) -framework OpenGL -framework AppKit
 	DEF_TARGET	= -D BUILD_APPKIT
 endif
 ifeq ($(BUILD_TARGET), X11)
-	LINK_MLX	= -L . -lmlx -lXext -lX11
+	LINK_MLX	= $(LINK_LIBMLX) -lXext -lX11
 	DEF_TARGET	= -D BUILD_X11
 endif
 
@@ -57,14 +62,17 @@ CFLAGS			= $(BUILD_DEBUG) -Wall -Werror -Wextra $(DEF_TARGET)
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(OBJ)
+$(NAME) : $(LIBFT) $(LIBMLX) $(OBJ)
 	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBS) -o $(NAME)
 
-bonus : $(LIBFT) $(OBJ_BONUS)
+bonus : $(LIBFT) $(LIBMLX) $(OBJ_BONUS)
 	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ_BONUS) $(LINK_LIBS) -o $(BONUS)
 
 $(LIBFT) :
 	make -s -C $(LIBFT_DIR)/
+
+$(LIBMLX) :
+	make -s -C $(LIBMLX_DIR)/
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
@@ -72,6 +80,7 @@ $(LIBFT) :
 clean :
 	$(RM) $(OBJ) $(OBJ_BONUS) $(NAME).o $(BONUS).o
 	make clean -C $(LIBFT_DIR)
+	make clean -C $(LIBMLX_DIR)
 
 fclean : clean
 	$(RM) $(NAME) $(BONUS)
