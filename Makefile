@@ -25,22 +25,6 @@ LINK_LIBS		= $(LINK_LIBFT) $(LINK_MLX) $(LINK_LIBM)
 INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes -I includes_bonus
 
 SRCNAME			= \
-				parser/parser \
-				parser/parse_map_info \
-				parser/parse_map_content \
-				arithmetic/multiply_m44_m44 \
-				arithmetic/multiply_vertex_m44 \
-				arithmetic/rotate_m44 \
-				arithmetic/translate_m44 \
-				geometry/matrix \
-				geometry/map \
-				display/camera \
-				display/projection \
-				display/display \
-				display/display_putline \
-				display/display_putbuffer \
-				mlx_interface/state \
-				fdf
 
 SRCNAME_BONUS	= \
 				parser/parser_bonus \
