@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "geometry_bonus.h"
+#include <stdlib.h>
 
 void	init_matrix44_zero(t_matrix44 *m)
 {

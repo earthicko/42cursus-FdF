@@ -41,6 +41,20 @@ static void	increment_pos(int keycode, t_camera *cam)
 		increment_xyz_camera(cam, 1, -1);
 }
 
+static void	scale_map(int keycode, t_map *map)
+{
+	if (keycode == KEYCODE_PLUS)
+		scale_z_map(map, 1.1);
+	else if (keycode == KEYCODE_MINUS)
+		scale_z_map(map, 1 / 1.1);
+}
+
+int	exit_program(void *param)
+{
+	del_state((t_state *)param);
+	exit(0);
+}
+
 int	mlx_key_interface(int k, void *param)
 {
 	t_state	*state;
@@ -56,6 +70,8 @@ int	mlx_key_interface(int k, void *param)
 		increment_angle(k, state->cam);
 	else if (k == KEYCODE_SP)
 		switch_projection_mode(state->cam);
+	else if (k == KEYCODE_PLUS || k == KEYCODE_MINUS)
+		scale_map(k, state->map);
 	if (refresh_frame(param))
 	{
 		del_state(state);

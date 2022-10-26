@@ -30,10 +30,8 @@ SRCNAME_BONUS	= \
 				parser/parser_bonus \
 				parser/parse_map_info_bonus \
 				parser/parse_map_content_bonus \
-				arithmetic/multiply_m44_m44_bonus \
-				arithmetic/multiply_vertex_m44_bonus \
+				arithmetic/multiply_m44_bonus \
 				arithmetic/rotate_m44_bonus \
-				arithmetic/scale_m44_bonus \
 				arithmetic/translate_m44_bonus \
 				geometry/matrix_bonus \
 				geometry/map_bonus \

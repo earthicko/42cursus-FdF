@@ -14,7 +14,6 @@
 #include "consts_bonus.h"
 #include "display_bonus.h"
 #include <math.h>
-#include <limits.h>
 
 void	refresh_camera(t_camera *cam)
 {

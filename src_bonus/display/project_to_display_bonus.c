@@ -13,7 +13,6 @@
 #include "consts_bonus.h"
 #include "display_bonus.h"
 #include <stdlib.h>
-#include <math.h>
 #include <limits.h>
 
 static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
@@ -24,14 +23,19 @@ static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 
 	disp->v[i].x = (cam->v[i].x + 1.0) * disp->w / 2.0;
 	disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
-	alpha_ratio = 5 * cam->min_z / -cam->v[i].z;
-	alpha = (unsigned int)((double)UCHAR_MAX * alpha_ratio);
-	if (alpha > UCHAR_MAX)
+	if (cam->mode == CAMMODE_ISOMETRIC)
 		alpha = UCHAR_MAX;
-	color[0] = alpha;
-	color[1] = alpha;
-	color[2] = alpha;
-	color[3] = 0x00;
+	else
+	{
+		alpha_ratio = 5 * cam->min_z / -cam->v[i].z;
+		alpha = (unsigned int)((double)UCHAR_MAX * alpha_ratio);
+		if (alpha > UCHAR_MAX)
+			alpha = UCHAR_MAX;
+	}
+	color[0] = 0xFF;
+	color[1] = 0xFF;
+	color[2] = 0xFF;
+	color[3] = UCHAR_MAX - alpha;
 	disp->v[i].color = *(unsigned int *)color;
 }
 

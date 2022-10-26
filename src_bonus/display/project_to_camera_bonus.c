@@ -13,7 +13,6 @@
 #include "consts_bonus.h"
 #include "display_bonus.h"
 #include <stdlib.h>
-#include <math.h>
 #include <limits.h>
 
 static int	alloc_camera_v(t_camera *cam, int n_v)
@@ -50,11 +49,9 @@ static void	project_vertex_isometric(t_camera *cam, t_map *map, int i)
 	multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
 	if (-cam->v[i].z > CLIPPING_Z_D)
 	{
-		cam->v[i].x = -cam->v[i].x / cam->isometric_d;
-		cam->v[i].y = -cam->v[i].y / cam->isometric_d;
+		cam->v[i].x = cam->v[i].x / cam->isometric_d;
+		cam->v[i].y = cam->v[i].y / cam->isometric_d;
 		cam->is_visible[i] = is_visible(&cam->v[i]);
-		if (cam->is_visible[i] && - cam->v[i].z < cam->min_z)
-			cam->min_z = -cam->v[i].z;
 	}
 }
 
@@ -82,9 +79,9 @@ int	project_to_camera(t_camera *cam, t_map *map)
 	while (i < map->n_v)
 	{
 		cam->is_visible[i] = 0;
-		if (cam->mode == ISOMETRIC)
+		if (cam->mode == CAMMODE_ISOMETRIC)
 			project_vertex_isometric(cam, map, i);
-		else if (cam->mode == PERSPECTIVE)
+		else if (cam->mode == CAMMODE_PERSPECTIVE)
 			project_vertex_perspective(cam, map, i);
 		i++;
 	}
