@@ -27,6 +27,7 @@
 # endif
 # ifdef BUILD_APPKIT
 // AppKit Keycodes
+#  define KEYCODE_ESC 53
 #  define KEYCODE_Q 12
 #  define KEYCODE_W 13
 #  define KEYCODE_E 14

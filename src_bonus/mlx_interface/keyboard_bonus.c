@@ -60,7 +60,9 @@ int	mlx_key_interface(int k, void *param)
 	t_state	*state;
 
 	state = param;
-	if (k == KEYCODE_Q || k == KEYCODE_E || k == KEYCODE_W)
+	if (k == KEYCODE_ESC)
+		exit_program(param);
+	else if (k == KEYCODE_Q || k == KEYCODE_E || k == KEYCODE_W)
 		increment_pos(k, state->cam);
 	else if (k == KEYCODE_S || k == KEYCODE_A || k == KEYCODE_D)
 		increment_pos(k, state->cam);
