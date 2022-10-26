@@ -38,8 +38,8 @@ static void	initialize_cam(t_camera *cam, t_map *map)
 	width = (map->x_bound[1] - map->x_bound[0]) / 2;
 	height = (map->y_bound[1] - map->y_bound[0]) / 2;
 	radius = sqrt(width * width + height * height) * 2;
-	cam->azi = M_PI * 5 / 4;
-	cam->ele = M_PI * 3 / 4;
+	cam->azi = CAM_AZIMUTH_DEFAULT;
+	cam->ele = M_PI - CAM_ELEVATION_DEFAULT;
 	cam->step_d = radius / STEP_PER_DISTANCE;
 	cam->step_a = M_PI / STEP_PER_ROTATION;
 	cam->orig.x = radius * cos(M_PI - cam->ele) * cos(cam->azi);
