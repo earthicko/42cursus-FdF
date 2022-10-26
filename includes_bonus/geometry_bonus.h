@@ -43,6 +43,7 @@ typedef struct s_map
 	double		x_bound[2];
 	double		y_bound[2];
 	double		z_bound[2];
+	double		span;
 }	t_map;
 
 void		init_matrix44_zero(t_matrix44 *m);

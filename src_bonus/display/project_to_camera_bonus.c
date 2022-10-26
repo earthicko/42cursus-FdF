@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection_bonus.c                                 :+:      :+:    :+:   */
+/*   project_to_camera_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -45,59 +45,47 @@ static int	is_visible(t_vertex *v)
 	return (1);
 }
 
+static void	project_vertex_isometric(t_camera *cam, t_map *map, int i)
+{
+	multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
+	if (-cam->v[i].z > CLIPPING_Z_D)
+	{
+		cam->v[i].x = -cam->v[i].x / cam->isometric_d;
+		cam->v[i].y = -cam->v[i].y / cam->isometric_d;
+		cam->is_visible[i] = is_visible(&cam->v[i]);
+		if (cam->is_visible[i] && - cam->v[i].z < cam->min_z)
+			cam->min_z = -cam->v[i].z;
+	}
+}
+
+static void	project_vertex_perspective(t_camera *cam, t_map *map, int i)
+{
+	multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
+	if (-cam->v[i].z > CLIPPING_Z_D)
+	{
+		cam->v[i].x = -cam->v[i].x / cam->v[i].z;
+		cam->v[i].y = -cam->v[i].y / cam->v[i].z;
+		cam->is_visible[i] = is_visible(&cam->v[i]);
+		if (cam->is_visible[i] && - cam->v[i].z < cam->min_z)
+			cam->min_z = -cam->v[i].z;
+	}
+}
+
 int	project_to_camera(t_camera *cam, t_map *map)
 {
 	int	i;
 
 	if (cam->n_v != map->n_v && alloc_camera_v(cam, map->n_v))
 		return (-1);
+	cam->min_z = __DBL_MAX__;
 	i = 0;
 	while (i < map->n_v)
 	{
-		multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
 		cam->is_visible[i] = 0;
-		if (-cam->v[i].z > CLIPPING_Z_D)
-		{
-			cam->v[i].x = -cam->v[i].x / cam->v[i].z;
-			cam->v[i].y = -cam->v[i].y / cam->v[i].z;
-			cam->is_visible[i] = is_visible(&cam->v[i]);
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	map_screen_to_display(double src, double disp_size)
-{
-	if (src == INFINITY)
-		return (INT_MAX);
-	if (src == -INFINITY)
-		return (INT_MIN);
-	return ((src + 1.0) * disp_size / 2.0);
-}
-
-int	project_to_display(t_display *disp, t_camera *cam)
-{
-	int		i;
-
-	if (disp->n_v != cam->n_v)
-	{
-		if (disp->v)
-			free(disp->v);
-		disp->v = malloc(sizeof(t_pixel) * cam->n_v);
-		if (!disp->v)
-			return (-1);
-		disp->n_v = cam->n_v;
-	}
-	i = 0;
-	while (i < cam->n_v)
-	{
-		if (cam->is_visible[i])
-		{
-			disp->v[i].x = map_screen_to_display(cam->v[i].x, disp->w);
-			disp->v[i].y = map_screen_to_display(cam->v[i].y, disp->h);
-			disp->v[i].color = 0x00FFFFFF;
-		}
+		if (cam->mode == ISOMETRIC)
+			project_vertex_isometric(cam, map, i);
+		else if (cam->mode == PERSPECTIVE)
+			project_vertex_perspective(cam, map, i);
 		i++;
 	}
 	return (0);

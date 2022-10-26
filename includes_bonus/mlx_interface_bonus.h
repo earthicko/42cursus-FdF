@@ -37,6 +37,7 @@
 #  define KEYCODE_J 38
 #  define KEYCODE_K 40
 #  define KEYCODE_L 37
+#  define KEYCODE_SP 49
 # endif
 
 typedef struct s_state

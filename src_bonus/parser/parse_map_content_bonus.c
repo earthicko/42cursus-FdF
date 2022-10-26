@@ -14,6 +14,7 @@
 #include "parser_bonus.h"
 #include "consts_bonus.h"
 #include <limits.h>
+#include <math.h>
 
 static void	fill_z(t_map *map, t_intarr *row, int i_row)
 {
@@ -49,6 +50,7 @@ static void	determine_xyz_bound_grid_size(t_map *map)
 	map->x_bound[1] = map->grid_size * (map->n_col - 1);
 	map->y_bound[0] = 0;
 	map->y_bound[1] = map->grid_size * (map->n_row - 1);
+	map->span = sqrt(pow(map->x_bound[1], 2) + pow(map->y_bound[1], 2));
 }
 
 static void	fill_xy(t_map *map)

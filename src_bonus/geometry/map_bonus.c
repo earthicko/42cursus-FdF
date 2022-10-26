@@ -38,6 +38,7 @@ t_map	*create_map(void)
 	map->y_bound[1] = 0.0;
 	map->z_bound[0] = 0.0;
 	map->z_bound[1] = 0.0;
+	map->span = 0.0;
 	return (map);
 }
 

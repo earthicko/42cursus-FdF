@@ -14,6 +14,7 @@
 #include "consts_bonus.h"
 #include "display_bonus.h"
 #include <math.h>
+#include <limits.h>
 
 void	refresh_camera(t_camera *cam)
 {
@@ -45,6 +46,8 @@ static void	initialize_cam(t_camera *cam, t_map *map)
 	cam->orig.x = radius * cos(M_PI - cam->ele) * cos(cam->azi);
 	cam->orig.y = radius * cos(cam->ele) * sin(cam->azi);
 	cam->orig.z = -radius * sin(cam->ele);
+	cam->min_z = __DBL_MAX__;
+	cam->isometric_d = map->span;
 }
 
 t_camera	*create_camera(t_map *map)
@@ -69,4 +72,12 @@ void	del_camera(t_camera *cam)
 	if (cam->v)
 		free(cam->v);
 	free(cam);
+}
+
+void	switch_projection_mode(t_camera *cam)
+{
+	cam->mode++;
+	if (cam->mode > CAMMODE_MAX)
+		cam->mode = 0;
+	ft_printf("Camera projection mode switched to %d\n", cam->mode);
 }

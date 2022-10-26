@@ -28,9 +28,9 @@ static void	increment_angle(int keycode, t_camera *cam)
 static void	increment_pos(int keycode, t_camera *cam)
 {
 	if (keycode == KEYCODE_Q)
-		increment_xyz_camera(cam, 2, 1);
-	else if (keycode == KEYCODE_E)
 		increment_xyz_camera(cam, 2, -1);
+	else if (keycode == KEYCODE_E)
+		increment_xyz_camera(cam, 2, 1);
 	else if (keycode == KEYCODE_W)
 		increment_xyz_camera(cam, 0, 1);
 	else if (keycode == KEYCODE_S)
@@ -54,6 +54,8 @@ int	mlx_key_interface(int k, void *param)
 		increment_angle(k, state->cam);
 	else if (k == KEYCODE_K || k == KEYCODE_L)
 		increment_angle(k, state->cam);
+	else if (k == KEYCODE_SP)
+		switch_projection_mode(state->cam);
 	if (refresh_frame(param))
 	{
 		del_state(state);

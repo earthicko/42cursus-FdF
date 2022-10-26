@@ -39,7 +39,8 @@ SRCNAME_BONUS	= \
 				geometry/map_bonus \
 				display/camera_bonus \
 				display/camera_increment_bonus \
-				display/projection_bonus \
+				display/project_to_camera_bonus \
+				display/project_to_display_bonus \
 				display/display_bonus \
 				display/display_putline_bonus \
 				display/display_putbuffer_bonus \

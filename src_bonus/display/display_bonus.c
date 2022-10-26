@@ -55,6 +55,7 @@ t_display	*create_display(int width, int height, char *title)
 		return (del_display(disp));
 	disp->w = width;
 	disp->h = height;
+	disp->ratio = (double)disp->w / (double)disp->h;
 	disp->img = mlx_new_image(disp->mlx, width, height);
 	if (!disp->img)
 		return (del_display(disp));
