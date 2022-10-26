@@ -47,7 +47,7 @@ static int	is_visible(t_vertex *v)
 static void	project_vertex_isometric(t_camera *cam, t_map *map, int i)
 {
 	multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
-	if (-cam->v[i].z > CLIPPING_Z_D)
+	if (-cam->v[i].z > map->grid_size * RESOLUTION)
 	{
 		cam->v[i].x = cam->v[i].x / cam->isometric_d;
 		cam->v[i].y = cam->v[i].y / cam->isometric_d;
@@ -58,7 +58,7 @@ static void	project_vertex_isometric(t_camera *cam, t_map *map, int i)
 static void	project_vertex_perspective(t_camera *cam, t_map *map, int i)
 {
 	multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
-	if (-cam->v[i].z > CLIPPING_Z_D)
+	if (-cam->v[i].z > map->grid_size * RESOLUTION)
 	{
 		cam->v[i].x = -cam->v[i].x / cam->v[i].z;
 		cam->v[i].y = -cam->v[i].y / cam->v[i].z;
