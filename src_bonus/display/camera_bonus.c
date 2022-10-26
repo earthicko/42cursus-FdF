@@ -17,25 +17,34 @@
 
 void	refresh_camera(t_camera *cam)
 {
-	t_vertex	temp;
-
-	temp.x = 0;
-	temp.y = 0;
-	temp.z = -cam->radius;
+	ft_printf("Camera at (%d, %d, %d), a=%d deg, e=%d deg\n",
+		(int)-cam->orig.x,
+		(int)-cam->orig.y,
+		(int)-cam->orig.z,
+		(int)(cam->azi * 180.0 / M_PI),
+		(int)(cam->ele * 180.0 / M_PI));
 	init_matrix44_identity(&cam->wtoc);
+	translate_m44_inplace(&cam->wtoc, &cam->orig);
 	rotate_m44_inplace(&cam->wtoc, 2, -cam->azi);
 	rotate_m44_inplace(&cam->wtoc, 0, -(M_PI_2 - cam->ele));
-	translate_m44_inplace(&cam->wtoc, &temp);
 }
 
-static double	get_initial_cam_radius(t_map *map)
+static void	initialize_cam(t_camera *cam, t_map *map)
 {
 	double	width;
 	double	height;
+	double	radius;
 
 	width = (map->x_bound[1] - map->x_bound[0]) / 2;
 	height = (map->y_bound[1] - map->y_bound[0]) / 2;
-	return (sqrt(width * width + height * height) * 2);
+	radius = sqrt(width * width + height * height) * 2;
+	cam->azi = M_PI * 5 / 4;
+	cam->ele = M_PI * 3 / 4;
+	cam->step_d = radius / STEP_PER_DISTANCE;
+	cam->step_a = M_PI / STEP_PER_ROTATION;
+	cam->orig.x = radius * cos(M_PI - cam->ele) * cos(cam->azi);
+	cam->orig.y = radius * cos(cam->ele) * sin(cam->azi);
+	cam->orig.z = -radius * sin(cam->ele);
 }
 
 t_camera	*create_camera(t_map *map)
@@ -46,16 +55,8 @@ t_camera	*create_camera(t_map *map)
 	if (!cam)
 		return (NULL);
 	ft_memset(cam, 0, sizeof(t_camera));
-	cam->azi = -M_PI / 4;
-	cam->ele = M_PI - M_PI / 4;
-	cam->radius = get_initial_cam_radius(map);
-	cam->step_d = cam->radius / 8;
-	cam->step_a = M_PI / STEP_PER_ROTATION;
+	initialize_cam(cam, map);
 	ft_printf("Camera Initial Settings\n");
-	ft_printf("Azimuth: %d, Elevation: %d, Radius: %d\n",
-		(int)(cam->azi * 180 / M_PI),
-		(int)(cam->ele * 180 / M_PI),
-		(int)(cam->radius * 180 / M_PI));
 	ft_printf("Step of angle: %d, Step of distance: %d\n",
 		(int)(cam->step_a * 180 / M_PI),
 		(int)(cam->step_d));

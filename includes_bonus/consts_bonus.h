@@ -13,7 +13,9 @@
 #ifndef CONSTS_BONUS_H
 # define CONSTS_BONUS_H
 
-# define STEP_PER_ROTATION 24
+# define RESOLUTION 0.001
+# define STEP_PER_ROTATION 48
+# define STEP_PER_DISTANCE 32
 # define GRID_SCALE 2.0
 # define CLIPPING_XY_D 2.0
 # define CLIPPING_Z_D 0.5

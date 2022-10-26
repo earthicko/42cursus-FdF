@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "consts_bonus.h"
 #include "parser_bonus.h"
 #include "consts_bonus.h"
 #include <limits.h>
@@ -42,6 +43,8 @@ static void	determine_xyz_bound_grid_size(t_map *map)
 		i++;
 	}
 	map->grid_size = (map->z_bound[1] - map->z_bound[0]) / GRID_SCALE;
+	if (map->grid_size < RESOLUTION)
+		map->grid_size = 1;
 	map->x_bound[0] = 0;
 	map->x_bound[1] = map->grid_size * (map->n_col - 1);
 	map->y_bound[0] = 0;

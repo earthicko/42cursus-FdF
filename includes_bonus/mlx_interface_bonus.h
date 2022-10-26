@@ -13,6 +13,9 @@
 #ifndef MLX_INTERFACE_BONUS_H
 # define MLX_INTERFACE_BONUS_H
 # include "display_bonus.h"
+# if !defined(BUILD_X11) && !defined(BUILD_APPKIT)
+#  define BUILD_APPKIT
+# endif
 # ifdef BUILD_X11
 // X11 Keycodes
 #  define KEYCODE_Q 113
@@ -30,6 +33,10 @@
 #  define KEYCODE_A 0
 #  define KEYCODE_S 1
 #  define KEYCODE_D 2
+#  define KEYCODE_I 34
+#  define KEYCODE_J 38
+#  define KEYCODE_K 40
+#  define KEYCODE_L 37
 # endif
 
 typedef struct s_state

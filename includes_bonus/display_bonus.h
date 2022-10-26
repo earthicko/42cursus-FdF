@@ -27,9 +27,9 @@ typedef struct s_camera
 	int			n_v;
 	t_vertex	*v;
 	int			*is_visible;
+	t_vertex	orig;
 	double		azi;
 	double		ele;
-	double		radius;
 	double		step_a;
 	double		step_d;
 	double		fov;
@@ -55,7 +55,7 @@ void		del_camera(t_camera *cam);
 void		refresh_camera(t_camera *cam);
 void		increment_e_camera(t_camera *cam, int dir);
 void		increment_a_camera(t_camera *cam, int dir);
-void		increment_r_camera(t_camera *cam, int dir);
+void		increment_xyz_camera(t_camera *cam, int axis, int dir);
 
 t_display	*create_display(int width, int height, char *title);
 t_display	*del_display(t_display *disp);

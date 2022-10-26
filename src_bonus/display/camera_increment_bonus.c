@@ -17,20 +17,28 @@
 void	increment_e_camera(t_camera *cam, int dir)
 {
 	cam->ele += cam->step_a * dir;
-	ft_printf("Camera elevation set to %d\n", (int)(cam->ele * 180.0 / M_PI));
 	refresh_camera(cam);
 }
 
 void	increment_a_camera(t_camera *cam, int dir)
 {
 	cam->azi += cam->step_a * dir;
-	ft_printf("Camera Azimuth set to %d\n", (int)(cam->azi * 180.0 / M_PI));
 	refresh_camera(cam);
 }
 
-void	increment_r_camera(t_camera *cam, int dir)
+void	increment_xyz_camera(t_camera *cam, int axis, int dir)
 {
-	cam->radius += cam->step_d * dir;
-	ft_printf("Camera Radius set to %d\n", (int)(cam->radius * 180.0 / M_PI));
+	if (axis == 0)
+	{
+		cam->orig.x += dir * cam->step_d * cos(cam->ele) * sin(cam->azi);
+		cam->orig.y += -dir * cam->step_d * cos(cam->ele) * cos(cam->azi);
+	}
+	else if (axis == 1)
+	{
+		cam->orig.x += -dir * cam->step_d * cos(cam->ele) * cos(cam->azi);
+		cam->orig.y += -dir * cam->step_d * cos(cam->ele) * sin(cam->azi);
+	}
+	else if (axis == 2)
+		cam->orig.z += dir * cam->step_d;
 	refresh_camera(cam);
 }

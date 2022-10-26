@@ -29,7 +29,6 @@ static int	end_buffer_display(t_display *disp)
 {
 	if (!disp->img)
 		return (-1);
-	mlx_clear_window(disp->mlx, disp->win);
 	mlx_put_image_to_window(disp->mlx, disp->win, disp->img, 0, 0);
 	mlx_destroy_image(disp->mlx, disp->img);
 	disp->img = NULL;
