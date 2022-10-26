@@ -14,6 +14,7 @@
 #include "display_bonus.h"
 #include <stdlib.h>
 #include <limits.h>
+#include <math.h>
 
 static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 {
@@ -27,7 +28,7 @@ static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 		alpha = UCHAR_MAX;
 	else
 	{
-		alpha_ratio = 5 * cam->min_z / -cam->v[i].z;
+		alpha_ratio = pow(-cam->max_z / cam->v[i].z, 2);
 		alpha = (unsigned int)((double)UCHAR_MAX * alpha_ratio);
 		if (alpha > UCHAR_MAX)
 			alpha = UCHAR_MAX;

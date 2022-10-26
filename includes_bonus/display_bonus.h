@@ -31,7 +31,7 @@ typedef struct s_camera
 	int			n_v;
 	t_vertex	*v;
 	int			*is_visible;
-	double		min_z;
+	double		max_z;
 	t_vertex	orig;
 	double		azi;
 	double		ele;

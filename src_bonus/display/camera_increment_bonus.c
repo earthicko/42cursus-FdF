@@ -42,6 +42,6 @@ void	increment_xyz_camera(t_camera *cam, int axis, int dir)
 		cam->orig.y += -dir * cam->step_d * cos(cam->ele) * sin(cam->azi);
 	}
 	else if (axis == 2)
-		cam->orig.z += dir * cam->step_d;
+		cam->orig.z += dir * cam->step_d * sin(cam->ele) / 2;
 	refresh_camera(cam);
 }

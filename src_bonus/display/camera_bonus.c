@@ -45,7 +45,7 @@ static void	initialize_cam(t_camera *cam, t_map *map)
 	cam->orig.x = -radius * cos(cam->ele) * cos(cam->azi);
 	cam->orig.y = radius * cos(cam->ele) * sin(cam->azi);
 	cam->orig.z = -radius * sin(cam->ele) / 1.5;
-	cam->min_z = __DBL_MAX__;
+	cam->max_z = RESOLUTION;
 	cam->isometric_d = map->span / 1.5;
 }
 
