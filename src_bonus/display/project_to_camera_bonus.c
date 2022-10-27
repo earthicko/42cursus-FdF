@@ -52,6 +52,7 @@ static void	project_vertex_isometric(t_camera *cam, t_map *map, int i)
 	{
 		cam->v[i].x = cam->v[i].x / cam->isometric_d;
 		cam->v[i].y = cam->v[i].y / cam->isometric_d;
+		cam->v[i].color = map->v[i].color;
 		cam->is_visible[i] = is_visible(&cam->v[i]);
 	}
 }
@@ -63,6 +64,7 @@ static void	project_vertex_perspective(t_camera *cam, t_map *map, int i)
 	{
 		cam->v[i].x = -cam->v[i].x / cam->v[i].z;
 		cam->v[i].y = -cam->v[i].y / cam->v[i].z;
+		cam->v[i].color = map->v[i].color;
 		cam->is_visible[i] = is_visible(&cam->v[i]);
 	}
 }

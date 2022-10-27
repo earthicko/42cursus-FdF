@@ -21,24 +21,24 @@ static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 {
 	t_uint	alpha;
 	t_uchar	color[4];
+	t_uchar	alpha_orig;
 	double	alpha_ratio;
 
 	disp->v[i].x = (cam->v[i].x + 1.0) * disp->w / 2.0;
 	disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
 	if (cam->mode == CAMMODE_ISOMETRIC)
-		alpha = UCHAR_MAX;
+		disp->v[i].color = cam->v[i].color;
 	else
 	{
+		alpha_orig = ((t_uchar *)(&(cam->v[i].color)))[3];
 		alpha_ratio = pow(-cam->max_z / cam->v[i].z, 2);
-		alpha = (t_uint)((double)UCHAR_MAX * alpha_ratio);
+		alpha = (t_uint)(alpha_ratio * (double)(UCHAR_MAX - alpha_orig));
 		if (alpha > UCHAR_MAX)
 			alpha = UCHAR_MAX;
+		*(t_uint *)color = cam->v[i].color;
+		color[3] = UCHAR_MAX - alpha;
+		disp->v[i].color = *(t_uint *)color;
 	}
-	color[0] = 0xFF;
-	color[1] = 0xFF;
-	color[2] = 0xFF;
-	color[3] = UCHAR_MAX - alpha;
-	disp->v[i].color = *(t_uint *)color;
 }
 
 int	project_to_display(t_display *disp, t_camera *cam)

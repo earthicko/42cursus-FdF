@@ -33,6 +33,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 		multiply_vertex_m44(cam->v + i, map->v + i, &cam->wtoc);
 		cam->v[i].x = cam->v[i].x / cam->isometric_d;
 		cam->v[i].y = cam->v[i].y / cam->isometric_d;
+		cam->v[i].color = map->v[i].color;
 		i++;
 	}
 	return (CODE_OK);
@@ -56,6 +57,7 @@ int	project_to_display(t_display *disp, t_camera *cam)
 	{
 		disp->v[i].x = (cam->v[i].x + 1.0) * disp->w / 2.0;
 		disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
+		disp->v[i].color = cam->v[i].color;
 		i++;
 	}
 	return (CODE_OK);

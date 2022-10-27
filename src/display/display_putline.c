@@ -13,6 +13,23 @@
 #include "libft.h"
 #include "display.h"
 
+static t_uint	avg_color(t_uint a, t_uint b)
+{
+	int		i;
+	t_uint	out;
+	t_uint	val;
+
+	out = 0;
+	i = 0;
+	while (i < (int) sizeof(t_uint))
+	{
+		val = ((t_uint)((t_uchar *)(&a))[i] + (t_uint)((t_uchar *)(&b))[i]) / 2;
+		((t_uchar *)(&out))[i] = (t_uchar)val;
+		i++;
+	}
+	return (out);
+}
+
 static void	putpixel_display(t_display *disp, t_pixel p)
 {
 	int	o_height;
@@ -24,7 +41,7 @@ static void	putpixel_display(t_display *disp, t_pixel p)
 		return ;
 	o_height = disp->nbytes * p.y;
 	o_width = p.x * disp->bpp / 8;
-	*(t_uint *)(disp->img_addr + o_height + o_width) = 0x00FFFFFF;
+	*(t_uint *)(disp->img_addr + o_height + o_width) = p.color;
 }
 
 static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
@@ -39,6 +56,7 @@ static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
 		return ;
 	m.x = (s.x + e.x) / 2;
 	m.y = (s.y + e.y) / 2;
+	m.color = avg_color(s.color, e.color);
 	putpixel_display(disp, s);
 	putpixel_display(disp, e);
 	putpixel_display(disp, m);

@@ -16,8 +16,9 @@
 
 typedef struct s_pixel
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_uint	color;
 }	t_pixel;
 
 typedef struct s_camera

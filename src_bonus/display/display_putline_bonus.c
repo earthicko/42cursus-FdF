@@ -14,18 +14,16 @@
 
 static t_uint	avg_color(t_uint a, t_uint b)
 {
-	t_uint	out;
 	int		i;
-	t_uint	col[3];
+	t_uint	out;
+	t_uint	val;
 
 	out = 0;
 	i = 0;
-	while (i < 4)
+	while (i < (int) sizeof(t_uint))
 	{
-		col[0] = (t_uchar)(a >> (i * 8));
-		col[1] = (t_uchar)(b >> (i * 8));
-		col[2] = ((col[0] + col[1]) / 2) << (i * 8);
-		out |= col[2];
+		val = ((t_uint)((t_uchar *)(&a))[i] + (t_uint)((t_uchar *)(&b))[i]) / 2;
+		((t_uchar *)(&out))[i] = (t_uchar)val;
 		i++;
 	}
 	return (out);

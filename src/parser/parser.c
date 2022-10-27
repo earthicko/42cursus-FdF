@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "ft_printf_def.h"
+#include "consts.h"
 #include "parser.h"
 #include <fcntl.h>
 #include <unistd.h>
@@ -70,23 +71,23 @@ int	parse_vertex(char *word, t_vertex *v)
 {
 	char	**words;
 	int		wordslen;
-	int		z;
 	int		ret;
 
 	words = ft_split(word, ',');
 	if (!words)
 		return (CODE_ERROR_MALLOC);
 	wordslen = ft_strarrlen(words);
-	if (wordslen > 2 || ft_atoi_if_valid(words[0], &z))
+	if (wordslen > 2 || ft_atoi_if_valid(words[0], &ret))
 	{
 		ft_dprintf(STDERR_FILENO,
 			"parser: \"%s\" is not a properly formatted vertex info\n", word);
 		ft_free_strarr(words);
 		return (CODE_ERROR_DATA);
 	}
-	v->z = z;
+	v->z = ret;
 	if (wordslen == 1)
 	{
+		v->color = COLOR_DEFAULT;
 		ft_free_strarr(words);
 		return (CODE_OK);
 	}
