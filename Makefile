@@ -3,20 +3,20 @@ BONUS			= fdf
 
 LIBFT_DIR		= libft
 LIBFT			= libft.a
-LINK_LIBFT		= -L $(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
-INC_DIR_LIBFT	= -I $(LIBFT_DIR)/includes
+LINK_LIBFT		= -L$(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
+INC_DIR_LIBFT	= -I$(LIBFT_DIR)/includes
 
 LIBMLX_DIR		= minilibx_macos
 LIBMLX			= libmlx.a
-LINK_LIBMLX		= -L $(LIBMLX_DIR) $(LIBMLX_DIR)/$(LIBMLX) -framework OpenGL -framework AppKit
-INC_DIR_LIBMLX	= -I $(LIBMLX_DIR)
+LINK_LIBMLX		= -L$(LIBMLX_DIR) $(LIBMLX_DIR)/$(LIBMLX) -framework OpenGL -framework AppKit
+INC_DIR_LIBMLX	= -I$(LIBMLX_DIR)
 
 LINK_LIBM		= -lm
 
 LINK_LIBS		= $(LINK_LIBFT) $(LINK_LIBMLX) $(LINK_LIBM)
 
-INC_DIR			= -I . $(INC_DIR_LIBFT) -I includes
-INC_DIR_BONUS	= -I . $(INC_DIR_LIBFT) -I includes_bonus
+INC_DIR			= -I. $(INC_DIR_LIBFT) $(INC_DIR_LIBMLX) -Iincludes
+INC_DIR_BONUS	= -I. $(INC_DIR_LIBFT) $(INC_DIR_LIBMLX) -Iincludes_bonus
 
 SRCNAME			= \
 				parser/parser \
