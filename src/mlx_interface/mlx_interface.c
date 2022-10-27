@@ -16,13 +16,16 @@
 #include "mlx_interface.h"
 #include <stdlib.h>
 
+int	exit_program(void *param)
+{
+	del_state((t_state *)param);
+	exit(0);
+}
+
 int	mlx_key_interface(int k, void *param)
 {
 	if (k == KEYCODE_ESC)
-	{
-		del_state((t_state *)param);
-		exit(0);
-	}
+		exit_program(param);
 	return (0);
 }
 
