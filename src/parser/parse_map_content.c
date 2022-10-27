@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "consts.h"
 #include "parser.h"
 #include "consts.h"
 #include <limits.h>
 #include <math.h>
+#include <stdlib.h>
 
 static void	fill_z(t_map *map, t_intarr *row, int i_row)
 {

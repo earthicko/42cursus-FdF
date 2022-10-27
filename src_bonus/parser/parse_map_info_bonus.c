@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "parser_bonus.h"
+#include <stdlib.h>
 
 static int	determine_width(t_map *map, int fd)
 {

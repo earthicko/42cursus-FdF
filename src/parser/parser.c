@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "parser.h"
 #include <fcntl.h>
 #include <unistd.h>

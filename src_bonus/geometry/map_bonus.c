@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "geometry_bonus.h"
+#include <stdlib.h>
 
 t_map	*del_map(t_map *map)
 {

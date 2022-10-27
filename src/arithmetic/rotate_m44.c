@@ -56,20 +56,20 @@ static void	rotate_matrix44_z(t_matrix44 *out, t_matrix44 *m, double theta)
 	multiply_m44_m44(out, m, &rotate);
 }
 
-void	rotate_m44(t_matrix44 *out, t_matrix44 *m, int xyz, double theta)
+void	rotate_m44(t_matrix44 *out, t_matrix44 *m, int axis_i, double theta)
 {
-	if (xyz == 0)
+	if (axis_i == AXIS_X)
 		rotate_matrix44_x(out, m, theta);
-	else if (xyz == 1)
+	else if (axis_i == AXIS_Y)
 		rotate_matrix44_y(out, m, theta);
-	else if (xyz == 2)
+	else if (axis_i == AXIS_Z)
 		rotate_matrix44_z(out, m, theta);
 }
 
-void	rotate_m44_inplace(t_matrix44 *m, int i_axis, double theta)
+void	rotate_m44_inplace(t_matrix44 *m, int axis_i, double theta)
 {
 	t_matrix44	temp;
 
-	rotate_m44(&temp, m, i_axis, theta);
+	rotate_m44(&temp, m, axis_i, theta);
 	ft_memcpy(m, &temp, sizeof(t_matrix44));
 }

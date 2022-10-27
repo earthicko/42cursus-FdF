@@ -27,7 +27,7 @@ void	increment_a_camera(t_camera *cam, int dir)
 
 void	increment_xyz_camera(t_camera *cam, int axis, int dir)
 {
-	if (axis == 0)
+	if (axis == AXIS_X)
 	{
 		cam->orig.x += dir * cam->step_d * cos(cam->ele) * sin(cam->azi);
 		cam->orig.y += -dir * cam->step_d * cos(cam->ele) * cos(cam->azi);
@@ -36,12 +36,12 @@ void	increment_xyz_camera(t_camera *cam, int axis, int dir)
 		else if (dir < 0)
 			cam->isometric_d *= 1.1;
 	}
-	else if (axis == 1)
+	else if (axis == AXIS_Y)
 	{
 		cam->orig.x += -dir * cam->step_d * cos(cam->ele) * cos(cam->azi);
 		cam->orig.y += -dir * cam->step_d * cos(cam->ele) * sin(cam->azi);
 	}
-	else if (axis == 2)
+	else if (axis == AXIS_Z)
 		cam->orig.z += dir * cam->step_d * sin(cam->ele) / 2;
 	refresh_camera(cam);
 }

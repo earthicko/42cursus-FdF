@@ -14,6 +14,7 @@
 #include "consts.h"
 #include "display.h"
 #include <math.h>
+#include <stdlib.h>
 
 void	refresh_camera(t_camera *cam)
 {
@@ -50,7 +51,7 @@ t_camera	*create_camera(t_map *map)
 {
 	t_camera	*cam;
 
-	cam = (t_camera *)malloc(sizeof(t_camera));
+	cam = malloc(sizeof(t_camera));
 	if (!cam)
 		return (NULL);
 	ft_memset(cam, 0, sizeof(t_camera));

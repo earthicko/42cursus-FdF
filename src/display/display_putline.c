@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "display.h"
 
 static void	putpixel_display(t_display *disp, t_pixel p)
@@ -23,7 +24,7 @@ static void	putpixel_display(t_display *disp, t_pixel p)
 		return ;
 	o_height = disp->nbytes * p.y;
 	o_width = p.x * disp->bpp / 8;
-	*(int *)(disp->img_addr + o_height + o_width) = 0x00FFFFFF;
+	*(t_uint *)(disp->img_addr + o_height + o_width) = 0x00FFFFFF;
 }
 
 static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
@@ -48,9 +49,9 @@ static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
 int	putline_display(t_display *disp, t_pixel s, t_pixel e)
 {
 	if (!disp->img)
-		return (-1);
+		return (CODE_ERROR_GENERIC);
 	putpixel_display(disp, s);
 	putpixel_display(disp, e);
 	putline_display_recur(disp, s, e);
-	return (0);
+	return (CODE_OK);
 }

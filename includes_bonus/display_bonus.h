@@ -12,16 +12,21 @@
 
 #ifndef DISPLAY_BONUS_H
 # define DISPLAY_BONUS_H
+# include "libft_def.h"
 # include "geometry_bonus.h"
-# define CAMMODE_ISOMETRIC 0
-# define CAMMODE_PERSPECTIVE 1
-# define CAMMODE_MAX CAMMODE_PERSPECTIVE
+
+enum	e_cammode
+{
+	CAMMODE_ISOMETRIC = 0,
+	CAMMODE_PERSPECTIVE = 1,
+	CAMMODE_MAX = 1
+};
 
 typedef struct s_pixel
 {
-	int				x;
-	int				y;
-	unsigned int	color;
+	int		x;
+	int		y;
+	t_uint	color;
 }	t_pixel;
 
 typedef struct s_camera
@@ -71,4 +76,5 @@ int			putline_display(t_display *disp, t_pixel s, t_pixel e);
 int			project_to_camera(t_camera *cam, t_map *map);
 int			project_to_display(t_display *disp, t_camera *cam);
 void		putframe_display(t_display *disp, t_camera *cam, t_map *map);
+
 #endif

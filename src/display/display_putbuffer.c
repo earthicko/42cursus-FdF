@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "display.h"
 #include "mlx.h"
-#include <stddef.h>
 
 static int	start_buffer_display(t_display *disp)
 {
@@ -20,20 +20,20 @@ static int	start_buffer_display(t_display *disp)
 
 	disp->img = mlx_new_image(disp->mlx, disp->w, disp->h);
 	if (!disp->img)
-		return (-1);
+		return (CODE_ERROR_IO);
 	disp->img_addr = mlx_get_data_addr(disp->img, a, a + 1, a + 2);
-	return (0);
+	return (CODE_OK);
 }
 
 static int	end_buffer_display(t_display *disp)
 {
 	if (!disp->img)
-		return (-1);
+		return (CODE_ERROR_GENERIC);
 	mlx_clear_window(disp->mlx, disp->win);
 	mlx_put_image_to_window(disp->mlx, disp->win, disp->img, 0, 0);
 	mlx_destroy_image(disp->mlx, disp->img);
 	disp->img = NULL;
-	return (0);
+	return (CODE_OK);
 }
 
 void	putframe_display(t_display *disp, t_map *map)

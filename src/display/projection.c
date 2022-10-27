@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "display.h"
 #include <stdlib.h>
 
@@ -23,7 +24,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 			free(cam->v);
 		cam->v = malloc(sizeof(t_vertex) * map->n_v);
 		if (!cam->v)
-			return (-1);
+			return (CODE_ERROR_MALLOC);
 		cam->n_v = map->n_v;
 	}
 	i = 0;
@@ -34,7 +35,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 		cam->v[i].y = cam->v[i].y / cam->isometric_d;
 		i++;
 	}
-	return (0);
+	return (CODE_OK);
 }
 
 int	project_to_display(t_display *disp, t_camera *cam)
@@ -47,7 +48,7 @@ int	project_to_display(t_display *disp, t_camera *cam)
 			free(disp->v);
 		disp->v = malloc(sizeof(t_pixel) * cam->n_v);
 		if (!disp->v)
-			return (-1);
+			return (CODE_ERROR_MALLOC);
 		disp->n_v = cam->n_v;
 	}
 	i = 0;
@@ -57,5 +58,5 @@ int	project_to_display(t_display *disp, t_camera *cam)
 		disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
 		i++;
 	}
-	return (0);
+	return (CODE_OK);
 }

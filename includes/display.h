@@ -58,4 +58,5 @@ int			putline_display(t_display *disp, t_pixel s, t_pixel e);
 int			project_to_camera(t_camera *cam, t_map *map);
 int			project_to_display(t_display *disp, t_camera *cam);
 void		putframe_display(t_display *disp, t_map *map);
+
 #endif

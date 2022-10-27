@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "display_bonus.h"
 #include "mlx.h"
+#include <stdlib.h>
 
 t_display	*del_display(t_display *disp)
 {
@@ -43,7 +44,7 @@ t_display	*create_display(int width, int height, char *title)
 {
 	t_display	*disp;
 
-	disp = (t_display *)malloc(sizeof(t_display));
+	disp = malloc(sizeof(t_display));
 	if (!disp)
 		return (NULL);
 	ft_memset(disp, 0, sizeof(t_display));

@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "geometry.h"
+#include <stdlib.h>
 
 t_map	*del_map(t_map *map)
 {

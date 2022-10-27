@@ -14,6 +14,7 @@
 #include "consts_bonus.h"
 #include "parser_bonus.h"
 #include "mlx_interface_bonus.h"
+#include <stdlib.h>
 
 t_state	*del_state(t_state *state)
 {
@@ -31,7 +32,7 @@ t_state	*create_state(char *map_path)
 {
 	t_state	*state;
 
-	state = (t_state *)malloc(sizeof(t_state));
+	state = malloc(sizeof(t_state));
 	if (!state)
 		return (NULL);
 	ft_memset(state, 0, sizeof(t_state));

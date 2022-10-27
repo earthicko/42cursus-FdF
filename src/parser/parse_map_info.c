@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "parser.h"
+#include <stdlib.h>
 
 static int	determine_width(t_map *map, int fd)
 {
@@ -19,7 +21,7 @@ static int	determine_width(t_map *map, int fd)
 
 	first_line = get_next_line(fd);
 	if (!first_line)
-		return (CODE_ERROR_GENERIC);
+		return (CODE_ERROR_IO);
 	first_row = parse_line(first_line);
 	free(first_line);
 	if (!first_row)

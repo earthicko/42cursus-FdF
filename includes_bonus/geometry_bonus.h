@@ -13,6 +13,13 @@
 #ifndef GEOMETRY_BONUS_H
 # define GEOMETRY_BONUS_H
 
+enum	e_axis
+{
+	AXIS_X = 0,
+	AXIS_Y,
+	AXIS_Z
+};
+
 typedef struct s_vertex
 {
 	double	x;
@@ -48,20 +55,18 @@ typedef struct s_map
 
 void		init_matrix44_zero(t_matrix44 *m);
 void		init_matrix44_identity(t_matrix44 *m);
-t_matrix44	*create_matrix44(void);
 
 void		multiply_vertex_m44(t_vertex *out, t_vertex *a, t_matrix44 *b);
 void		multiply_m44_m44(t_matrix44 *out, t_matrix44 *a, t_matrix44 *b);
 void		multiply_m44_m44_inplace(t_matrix44 *out, t_matrix44 *m);
 
 void		translate_m44_inplace(t_matrix44 *m, t_vertex *delta);
-void		scale_m44(t_matrix44 *out, t_matrix44 *m, t_vertex *scale);
-void		scale_m44_inplace(t_matrix44 *m, t_vertex *scale);
-void		rotate_m44(t_matrix44 *out, t_matrix44 *m, int xyz, double theta);
-void		rotate_m44_inplace(t_matrix44 *m, int xyz, double theta);
+void		rotate_m44(t_matrix44 *out, t_matrix44 *m, int axis_i, double a);
+void		rotate_m44_inplace(t_matrix44 *m, int axis_i, double a);
 
 t_map		*create_map(void);
 t_map		*del_map(t_map *map);
 void		center_map(t_map *map);
 void		scale_z_map(t_map *map, double scale);
+
 #endif

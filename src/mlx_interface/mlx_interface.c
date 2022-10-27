@@ -14,6 +14,7 @@
 #include "consts.h"
 #include "parser.h"
 #include "mlx_interface.h"
+#include <stdlib.h>
 
 int	mlx_key_interface(int k, void *param)
 {
@@ -41,7 +42,7 @@ t_state	*create_state(char *map_path)
 {
 	t_state	*state;
 
-	state = (t_state *)malloc(sizeof(t_state));
+	state = malloc(sizeof(t_state));
 	if (!state)
 		return (NULL);
 	ft_memset(state, 0, sizeof(t_state));
@@ -63,9 +64,13 @@ t_state	*create_state(char *map_path)
 
 int	refresh_frame(t_state *state)
 {
-	if (project_to_camera(state->cam, state->map))
-		return (-1);
-	if (project_to_display(state->disp, state->cam))
+	int	ret;
+
+	ret = project_to_camera(state->cam, state->map);
+	if (ret)
+		return (ret);
+	ret = project_to_display(state->disp, state->cam);
+	if (ret)
 		return (-1);
 	putframe_display(state->disp, state->map);
 	return (0);

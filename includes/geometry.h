@@ -13,6 +13,13 @@
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
 
+enum	e_axis
+{
+	AXIS_X = 0,
+	AXIS_Y,
+	AXIS_Z
+};
+
 typedef struct s_vertex
 {
 	double	x;
@@ -54,10 +61,11 @@ void		multiply_m44_m44(t_matrix44 *out, t_matrix44 *a, t_matrix44 *b);
 void		multiply_m44_m44_inplace(t_matrix44 *out, t_matrix44 *m);
 
 void		translate_m44_inplace(t_matrix44 *m, t_vertex *delta);
-void		rotate_m44(t_matrix44 *out, t_matrix44 *m, int xyz, double theta);
-void		rotate_m44_inplace(t_matrix44 *m, int xyz, double theta);
+void		rotate_m44(t_matrix44 *out, t_matrix44 *m, int axis_i, double a);
+void		rotate_m44_inplace(t_matrix44 *m, int axis_i, double a);
 
 t_map		*create_map(void);
 t_map		*del_map(t_map *map);
 void		center_map(t_map *map);
+
 #endif

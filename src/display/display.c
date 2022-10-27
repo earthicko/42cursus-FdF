@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "display.h"
 #include "mlx.h"
+#include <stdlib.h>
 
 t_display	*del_display(t_display *disp)
 {
@@ -33,17 +34,17 @@ static int	get_display_info(t_display *disp)
 	disp->nbytes = i[1];
 	disp->endian = i[2];
 	if (!disp->img_addr)
-		return (-1);
+		return (CODE_ERROR_IO);
 	mlx_destroy_image(disp->mlx, disp->img);
 	disp->img_addr = NULL;
-	return (0);
+	return (CODE_OK);
 }
 
 t_display	*create_display(int width, int height, char *title)
 {
 	t_display	*disp;
 
-	disp = (t_display *)malloc(sizeof(t_display));
+	disp = malloc(sizeof(t_display));
 	if (!disp)
 		return (NULL);
 	ft_memset(disp, 0, sizeof(t_display));

@@ -18,9 +18,9 @@
 
 static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 {
-	unsigned int	alpha;
-	unsigned char	color[4];
-	double			alpha_ratio;
+	t_uint	alpha;
+	t_uchar	color[4];
+	double	alpha_ratio;
 
 	disp->v[i].x = (cam->v[i].x + 1.0) * disp->w / 2.0;
 	disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
@@ -29,7 +29,7 @@ static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 	else
 	{
 		alpha_ratio = pow(-cam->max_z / cam->v[i].z, 2);
-		alpha = (unsigned int)((double)UCHAR_MAX * alpha_ratio);
+		alpha = (t_uint)((double)UCHAR_MAX * alpha_ratio);
 		if (alpha > UCHAR_MAX)
 			alpha = UCHAR_MAX;
 	}
@@ -37,7 +37,7 @@ static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 	color[1] = 0xFF;
 	color[2] = 0xFF;
 	color[3] = UCHAR_MAX - alpha;
-	disp->v[i].color = *(unsigned int *)color;
+	disp->v[i].color = *(t_uint *)color;
 }
 
 int	project_to_display(t_display *disp, t_camera *cam)

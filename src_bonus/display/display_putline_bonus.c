@@ -12,18 +12,18 @@
 
 #include "display_bonus.h"
 
-static unsigned int	avg_color(unsigned int a, unsigned int b)
+static t_uint	avg_color(t_uint a, t_uint b)
 {
-	unsigned int	out;
-	int				i;
-	unsigned int	col[3];
+	t_uint	out;
+	int		i;
+	t_uint	col[3];
 
 	out = 0;
 	i = 0;
 	while (i < 4)
 	{
-		col[0] = (unsigned char)(a >> (i * 8));
-		col[1] = (unsigned char)(b >> (i * 8));
+		col[0] = (t_uchar)(a >> (i * 8));
+		col[1] = (t_uchar)(b >> (i * 8));
 		col[2] = ((col[0] + col[1]) / 2) << (i * 8);
 		out |= col[2];
 		i++;
@@ -42,7 +42,7 @@ static void	putpixel_display(t_display *disp, t_pixel p)
 		return ;
 	o_height = disp->nbytes * p.y;
 	o_width = p.x * disp->bpp / 8;
-	*(int *)(disp->img_addr + o_height + o_width) = p.color;
+	*(t_uint *)(disp->img_addr + o_height + o_width) = p.color;
 }
 
 static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
