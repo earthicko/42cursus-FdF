@@ -18,8 +18,8 @@
 # define CAM_ELEVATION_DEFAULT 0.6154729070
 # define COLOR_DEFAULT 0x00FFFFFF
 # define GRID_SCALE 5.0
-# define SCREEN_W 1500
-# define SCREEN_H 1000
+# define SCREEN_W 1920
+# define SCREEN_H 1080
 # define SCREEN_TITLE "FdF"
 
 #endif
