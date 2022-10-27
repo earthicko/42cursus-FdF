@@ -22,6 +22,7 @@ SRCNAME			= \
 				parser/parser \
 				parser/parse_map_info \
 				parser/parse_map_content \
+				parser/vertexarr \
 				arithmetic/multiply_m44 \
 				arithmetic/rotate_m44 \
 				arithmetic/translate_m44 \
@@ -39,6 +40,7 @@ SRCNAME_BONUS	= \
 				parser/parser_bonus \
 				parser/parse_map_info_bonus \
 				parser/parse_map_content_bonus \
+				parser/vertexarr_bonus \
 				arithmetic/multiply_m44_bonus \
 				arithmetic/rotate_m44_bonus \
 				arithmetic/translate_m44_bonus \

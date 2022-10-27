@@ -12,6 +12,7 @@
 
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
+# include "libft_def.h"
 
 enum	e_axis
 {
@@ -25,6 +26,7 @@ typedef struct s_vertex
 	double	x;
 	double	y;
 	double	z;
+	t_uint	color;
 }	t_vertex;
 
 typedef struct s_edge

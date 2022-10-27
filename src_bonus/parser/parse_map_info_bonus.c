@@ -17,7 +17,7 @@
 static int	determine_width(t_map *map, int fd)
 {
 	char		*first_line;
-	t_intarr	*first_row;
+	t_vertexarr	*first_row;
 
 	first_line = get_next_line(fd);
 	if (!first_line)
@@ -27,14 +27,14 @@ static int	determine_width(t_map *map, int fd)
 	if (!first_row)
 		return (CODE_ERROR_GENERIC);
 	map->n_col = first_row->len;
-	del_intarr(first_row);
+	del_vertexarr(first_row);
 	return (CODE_OK);
 }
 
 static int	determine_height(t_map *map, int fd)
 {
 	char		*next_line;
-	t_intarr	*next_row;
+	t_vertexarr	*next_row;
 	int			n_row;
 	int			n_col;
 
@@ -52,7 +52,7 @@ static int	determine_height(t_map *map, int fd)
 		if (!next_row)
 			return (CODE_ERROR_GENERIC);
 		n_col = next_row->len;
-		del_intarr(next_row);
+		del_vertexarr(next_row);
 		if (n_col != map->n_col)
 			return (CODE_ERROR_GENERIC);
 		n_row++;

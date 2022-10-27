@@ -18,18 +18,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-static void	fill_z(t_map *map, t_intarr *row, int i_row)
-{
-	int	i_col;
-
-	i_col = 0;
-	while (i_col < map->n_col)
-	{
-		map->v[i_row * map->n_col + i_col].z = row->data[i_col];
-		i_col++;
-	}
-}
-
 static void	determine_xyz_bound_grid_size(t_map *map)
 {
 	int	i;
@@ -107,7 +95,7 @@ int	parse_map_content(t_map *map, int fd)
 {
 	int			i_row;
 	char		*line;
-	t_intarr	*row;
+	t_vertexarr	*row;
 
 	i_row = 0;
 	while (i_row < map->n_row)
@@ -119,8 +107,11 @@ int	parse_map_content(t_map *map, int fd)
 		free(line);
 		if (!row)
 			return (CODE_ERROR_MALLOC);
-		fill_z(map, row, i_row);
-		del_intarr(row);
+		ft_memcpy(
+			map->v + (i_row * map->n_col),
+			row->data,
+			sizeof(t_vertex) * row->len);
+		del_vertexarr(row);
 		i_row++;
 	}
 	determine_xyz_bound_grid_size(map);

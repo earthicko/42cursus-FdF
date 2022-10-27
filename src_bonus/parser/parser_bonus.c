@@ -11,29 +11,99 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf_def.h"
 #include "parser_bonus.h"
 #include <fcntl.h>
 #include <unistd.h>
 
-t_intarr	*parse_line(char *line)
+static int	get_colorval(char *color, t_uchar *ret)
 {
-	t_intarr	*arr;
+	if (!ft_strchr(HEX_CHARS, color[0])
+		|| !ft_strchr(HEX_CHARS, color[-1]))
+		return (CODE_ERROR_DATA);
+	*ret = 0;
+	if ('0' <= color[0] && color[0] <= '9')
+		(*ret) += (color[0] - '0');
+	else if ('a' <= color[0] && color[0] <= 'f')
+		(*ret) += (color[0] - 'a' + 10);
+	else
+		(*ret) += (color[0] - 'A' + 10);
+	if ('0' <= color[-1] && color[-1] <= '9')
+		(*ret) += 16 * (color[-1] - '0');
+	else if ('a' <= color[-1] && color[-1] <= 'f')
+		(*ret) += 16 * (color[-1] - 'a' + 10);
+	else
+		(*ret) += 16 * (color[-1] - 'A' + 10);
+	return (CODE_OK);
+}
+
+static int	fill_vertex_color_info(char *color, t_vertex *v)
+{
+	int		i;
+	int		colorlen;
+	t_uchar	colorval;
+
+	colorlen = ft_strlen(color);
+	if (ft_strncmp(color, "0x", 2) || colorlen > 10 || colorlen % 2 != 0)
+		return (CODE_ERROR_DATA);
+	v->color = 0;
+	i = colorlen - 1;
+	while (i >= 2)
+	{
+		if (get_colorval(color + i, &colorval))
+			return (CODE_ERROR_DATA);
+		v->color |= ((t_uint)colorval) << (colorlen - 1 - i) * 4;
+		i -= 2;
+	}
+	return (CODE_OK);
+}
+
+int	parse_vertex(char *word, t_vertex *v)
+{
+	char	**words;
+	int		wordslen;
+	int		z;
+	int		ret;
+
+	words = ft_split(word, ',');
+	if (!words)
+		return (CODE_ERROR_MALLOC);
+	wordslen = ft_strarrlen(words);
+	if (wordslen > 2 || ft_atoi_if_valid(words[0], &z))
+	{
+		ft_free_strarr(words);
+		return (CODE_ERROR_DATA);
+	}
+	v->z = z;
+	if (wordslen == 1)
+	{
+		ft_free_strarr(words);
+		return (CODE_OK);
+	}
+	ret = fill_vertex_color_info(words[1], v);
+	ft_free_strarr(words);
+	return (ret);
+}
+
+t_vertexarr	*parse_line(char *line)
+{
+	t_vertexarr	*arr;
 	char		**split;
 	int			i;
 
 	split = ft_split_by_chars(line, SPACE_CHARS);
 	if (!split)
 		return (NULL);
-	arr = create_intarr(ft_strarrlen(split));
+	arr = create_vertexarr(ft_strarrlen(split));
 	if (!arr)
-		return ((t_intarr *)ft_free_strarr(split));
+		return ((t_vertexarr *)ft_free_strarr(split));
 	i = 0;
 	while (i < arr->cap)
 	{
-		if (ft_atoi_if_valid(split[i], &arr->data[i]))
+		if (parse_vertex(split[i], &arr->data[i]))
 		{
 			ft_free_strarr(split);
-			return (del_intarr(arr));
+			return (del_vertexarr(arr));
 		}
 		i++;
 	}
