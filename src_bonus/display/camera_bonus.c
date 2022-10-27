@@ -71,6 +71,8 @@ void	del_camera(t_camera *cam)
 {
 	if (cam->v)
 		free(cam->v);
+	if (cam->is_visible)
+		free(cam->is_visible);
 	free(cam);
 }
 
