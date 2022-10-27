@@ -20,7 +20,11 @@ static int	get_colorval(char *color, t_uchar *ret)
 {
 	if (!ft_strchr(HEX_CHARS, color[0])
 		|| !ft_strchr(HEX_CHARS, color[-1]))
+	{
+		ft_dprintf(STDERR_FILENO,
+			"parser: \"%s\" is not a valid color indicator\n", color);
 		return (CODE_ERROR_DATA);
+	}
 	*ret = 0;
 	if ('0' <= color[0] && color[0] <= '9')
 		(*ret) += (color[0] - '0');
@@ -45,7 +49,11 @@ static int	fill_vertex_color_info(char *color, t_vertex *v)
 
 	colorlen = ft_strlen(color);
 	if (ft_strncmp(color, "0x", 2) || colorlen > 10 || colorlen % 2 != 0)
+	{
+		ft_dprintf(STDERR_FILENO,
+			"parser: \"%s\" is not a valid color indicator\n", color);
 		return (CODE_ERROR_DATA);
+	}
 	v->color = 0;
 	i = colorlen - 1;
 	while (i >= 2)
@@ -71,6 +79,8 @@ int	parse_vertex(char *word, t_vertex *v)
 	wordslen = ft_strarrlen(words);
 	if (wordslen > 2 || ft_atoi_if_valid(words[0], &z))
 	{
+		ft_dprintf(STDERR_FILENO,
+			"parser: \"%s\" is not a properly formatted vertex info\n", word);
 		ft_free_strarr(words);
 		return (CODE_ERROR_DATA);
 	}
@@ -102,6 +112,8 @@ t_vertexarr	*parse_line(char *line)
 	{
 		if (parse_vertex(split[i], &arr->data[i]))
 		{
+			ft_dprintf(STDERR_FILENO,
+				"parser: error while parsing %s at col %d\n", split[i], i);
 			ft_free_strarr(split);
 			return (del_vertexarr(arr));
 		}
@@ -126,5 +138,12 @@ t_map	*parse_map(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0 || parse_map_content(map, fd) || close(fd))
 		return (del_map(map));
+	ft_printf("parser: map %d x %d, xy grid size=%d\n",
+		map->n_row, map->n_col, (int)(map->grid_size));
+	ft_printf("parser: total %d vertices, %d edges\n", map->n_v, map->n_e);
+	ft_printf("parser: x[%d, %d] y[%d, %d] z[%d, %d]\n",
+		(int)map->x_bound[0], (int)map->x_bound[1],
+		(int)map->y_bound[0], (int)map->y_bound[1],
+		(int)map->z_bound[0], (int)map->z_bound[1]);
 	return (map);
 }

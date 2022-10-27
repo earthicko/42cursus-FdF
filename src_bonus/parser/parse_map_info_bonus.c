@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "parser_bonus.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static int	determine_width(t_map *map, int fd)
 {
@@ -21,12 +22,17 @@ static int	determine_width(t_map *map, int fd)
 
 	first_line = get_next_line(fd);
 	if (!first_line)
-		return (CODE_ERROR_GENERIC);
+	{
+		ft_dprintf(STDERR_FILENO,
+			"parser: file is empty or error has occured while reading file");
+		return (CODE_ERROR_IO);
+	}
 	first_row = parse_line(first_line);
 	free(first_line);
 	if (!first_row)
 		return (CODE_ERROR_GENERIC);
 	map->n_col = first_row->len;
+	ft_printf("parser: map has %d columns\n", map->n_col);
 	del_vertexarr(first_row);
 	return (CODE_OK);
 }
@@ -35,28 +41,29 @@ static int	determine_height(t_map *map, int fd)
 {
 	char		*next_line;
 	t_vertexarr	*next_row;
-	int			n_row;
-	int			n_col;
 
-	n_row = 1;
-	while (TRUE)
+	while (++map->n_row)
 	{
 		next_line = get_next_line(fd);
 		if (!next_line)
 		{
-			map->n_row = n_row;
+			ft_printf("parser: map has %d rows\n", map->n_row);
 			return (CODE_OK);
 		}
 		next_row = parse_line(next_line);
 		free(next_line);
 		if (!next_row)
-			return (CODE_ERROR_GENERIC);
-		n_col = next_row->len;
+			return (CODE_ERROR_DATA);
 		del_vertexarr(next_row);
-		if (n_col != map->n_col)
-			return (CODE_ERROR_GENERIC);
-		n_row++;
+		if (next_row->len != map->n_col)
+		{
+			ft_dprintf(STDERR_FILENO,
+				"parser: row %d has different number of cols (%d != %d)\n",
+				next_row->len, map->n_col);
+			return (CODE_ERROR_DATA);
+		}
 	}
+	return (CODE_ERROR_GENERIC);
 }
 
 int	parse_map_info(t_map *map, int fd)

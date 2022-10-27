@@ -18,7 +18,7 @@
 
 void	refresh_camera(t_camera *cam)
 {
-	ft_printf("Camera at (%d, %d, %d), a=%d deg, e=%d deg\n",
+	ft_printf("camera: at (%d, %d, %d), a=%d deg, e=%d deg\n",
 		(int)-cam->orig.x,
 		(int)-cam->orig.y,
 		(int)-cam->orig.z,

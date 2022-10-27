@@ -107,13 +107,13 @@ int	parse_map_content(t_map *map, int fd)
 		free(line);
 		if (!row)
 			return (CODE_ERROR_MALLOC);
-		ft_memcpy(
-			map->v + (i_row * map->n_col),
-			row->data,
+		ft_memcpy(map->v + (i_row * map->n_col), row->data,
 			sizeof(t_vertex) * row->len);
 		del_vertexarr(row);
+		ft_printf("\rparser: parsing line %d...", i_row);
 		i_row++;
 	}
+	ft_printf("\n");
 	determine_xyz_bound_grid_size(map);
 	fill_xy(map);
 	fill_edge_s_e(map);
