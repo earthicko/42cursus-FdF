@@ -18,12 +18,13 @@
 
 void	refresh_camera(t_camera *cam)
 {
-	ft_printf("camera: at (%d, %d, %d), a=%d deg, e=%d deg\n",
+	ft_printf("camera: at (%d, %d, %d), a=%d deg, e=%d deg, iso=%d\n",
 		(int)-cam->orig.x,
 		(int)-cam->orig.y,
 		(int)-cam->orig.z,
 		(int)(cam->azi * 180.0 / M_PI),
-		(int)(cam->ele * 180.0 / M_PI));
+		(int)(cam->ele * 180.0 / M_PI),
+		(int)cam->isometric_d);
 	init_matrix44_identity(&cam->wtoc);
 	translate_m44_inplace(&cam->wtoc, &cam->orig);
 	rotate_m44_inplace(&cam->wtoc, 2, -cam->azi);
@@ -43,8 +44,8 @@ static void	initialize_cam(t_camera *cam, t_map *map)
 	cam->ele = M_PI - CAM_ELEVATION_DEFAULT;
 	cam->orig.x = -radius * cos(cam->ele) * cos(cam->azi);
 	cam->orig.y = radius * cos(cam->ele) * sin(cam->azi);
-	cam->orig.z = -radius * sin(cam->ele) / 1.5;
-	cam->isometric_d = map->span / 1.5;
+	cam->orig.z = -radius * sin(cam->ele);
+	cam->isometric_d = map->span * ((double)SCREEN_W / SCREEN_H) / 2;
 }
 
 t_camera	*create_camera(t_map *map)

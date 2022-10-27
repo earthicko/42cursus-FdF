@@ -21,8 +21,8 @@
 # define STEP_PER_DISTANCE 32
 # define GRID_SCALE 5.0
 # define CLIPPING_XY_D 2.0
-# define SCREEN_W 1920
-# define SCREEN_H 1080
+# define SCREEN_W 2560
+# define SCREEN_H 1200
 # define SCREEN_TITLE "FdF_bonus"
 
 #endif

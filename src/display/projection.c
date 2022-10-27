@@ -56,7 +56,7 @@ int	project_to_display(t_display *disp, t_camera *cam)
 	while (i < cam->n_v)
 	{
 		disp->v[i].x = (cam->v[i].x + 1.0) * disp->w / 2.0;
-		disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
+		disp->v[i].y = (cam->v[i].y * disp->ratio + 1.0) * disp->h / 2.0;
 		disp->v[i].color = cam->v[i].color;
 		i++;
 	}

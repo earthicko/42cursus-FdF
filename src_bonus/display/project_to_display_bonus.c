@@ -25,7 +25,7 @@ static void	map_screen_to_display(t_display *disp, t_camera *cam, int i)
 	double	alpha_ratio;
 
 	disp->v[i].x = (cam->v[i].x + 1.0) * disp->w / 2.0;
-	disp->v[i].y = (cam->v[i].y + 1.0) * disp->ratio * disp->h / 2.0;
+	disp->v[i].y = (cam->v[i].y * disp->ratio + 1.0) * disp->h / 2.0;
 	if (cam->mode == CAMMODE_ISOMETRIC)
 		disp->v[i].color = cam->v[i].color;
 	else
