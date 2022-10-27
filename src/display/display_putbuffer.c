@@ -22,6 +22,12 @@ static int	start_buffer_display(t_display *disp)
 	if (!disp->img)
 		return (CODE_ERROR_IO);
 	disp->img_addr = mlx_get_data_addr(disp->img, a, a + 1, a + 2);
+	if (!disp->img_addr)
+	{
+		mlx_destroy_image(disp->mlx, disp->img);
+		disp->img = NULL;
+		return (CODE_ERROR_IO);
+	}
 	return (CODE_OK);
 }
 
@@ -33,19 +39,27 @@ static int	end_buffer_display(t_display *disp)
 	mlx_put_image_to_window(disp->mlx, disp->win, disp->img, 0, 0);
 	mlx_destroy_image(disp->mlx, disp->img);
 	disp->img = NULL;
+	disp->img_addr = NULL;
 	return (CODE_OK);
 }
 
-void	putframe_display(t_display *disp, t_map *map)
+int	putframe_display(t_display *disp, t_map *map)
 {
-	int		i;
+	int	i;
+	int	ret;
 
-	start_buffer_display(disp);
+	ret = start_buffer_display(disp);
+	if (ret)
+		return (ret);
 	i = 0;
 	while (i < map->n_e)
 	{
-		putline_display(disp, disp->v[map->e[i].s], disp->v[map->e[i].e]);
+		if (putline_display(disp, disp->v[map->e[i].s], disp->v[map->e[i].e]))
+			break ;
 		i++;
 	}
-	end_buffer_display(disp);
+	ret = end_buffer_display(disp);
+	if (ret)
+		return (ret);
+	return (CODE_OK);
 }

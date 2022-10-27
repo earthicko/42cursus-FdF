@@ -21,6 +21,8 @@ t_display	*del_display(t_display *disp)
 		mlx_destroy_image(disp->mlx, disp->img);
 	if (disp->win)
 		mlx_destroy_window(disp->mlx, disp->win);
+	if (disp->v)
+		free(disp->v);
 	free(disp);
 	return (NULL);
 }
@@ -36,6 +38,7 @@ static int	get_display_info(t_display *disp)
 	if (!disp->img_addr)
 		return (CODE_ERROR_IO);
 	mlx_destroy_image(disp->mlx, disp->img);
+	disp->img = NULL;
 	disp->img_addr = NULL;
 	return (CODE_OK);
 }

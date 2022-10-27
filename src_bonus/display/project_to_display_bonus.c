@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft_def.h"
 #include "consts_bonus.h"
 #include "display_bonus.h"
 #include <stdlib.h>
@@ -50,7 +51,7 @@ int	project_to_display(t_display *disp, t_camera *cam)
 			free(disp->v);
 		disp->v = malloc(sizeof(t_pixel) * cam->n_v);
 		if (!disp->v)
-			return (-1);
+			return (CODE_ERROR_MALLOC);
 		disp->n_v = cam->n_v;
 	}
 	i = 0;
@@ -60,5 +61,5 @@ int	project_to_display(t_display *disp, t_camera *cam)
 			map_screen_to_display(disp, cam, i);
 		i++;
 	}
-	return (0);
+	return (CODE_OK);
 }

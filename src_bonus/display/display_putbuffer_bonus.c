@@ -20,46 +20,61 @@ static int	start_buffer_display(t_display *disp)
 
 	disp->img = mlx_new_image(disp->mlx, disp->w, disp->h);
 	if (!disp->img)
-		return (-1);
+		return (CODE_ERROR_IO);
 	disp->img_addr = mlx_get_data_addr(disp->img, a, a + 1, a + 2);
-	return (0);
+	if (!disp->img_addr)
+	{
+		mlx_destroy_image(disp->mlx, disp->img);
+		disp->img = NULL;
+		return (CODE_ERROR_IO);
+	}
+	return (CODE_OK);
 }
 
 static int	end_buffer_display(t_display *disp)
 {
 	if (!disp->img)
-		return (-1);
+		return (CODE_ERROR_GENERIC);
 	mlx_clear_window(disp->mlx, disp->win);
 	mlx_put_image_to_window(disp->mlx, disp->win, disp->img, 0, 0);
 	mlx_destroy_image(disp->mlx, disp->img);
 	disp->img = NULL;
-	return (0);
+	disp->img_addr = NULL;
+	return (CODE_OK);
 }
 
 static int	is_edge_visible(t_camera *cam, t_map *map, int i)
 {
 	if (!cam->is_visible[map->e[i].s])
-		return (0);
+		return (FALSE);
 	if (!cam->is_visible[map->e[i].e])
-		return (0);
-	return (1);
+		return (FALSE);
+	return (TRUE);
 }
 
-void	putframe_display(t_display *disp, t_camera *cam, t_map *map)
+int	putframe_display(t_display *disp, t_camera *cam, t_map *map)
 {
-	int		i;
+	int	i;
+	int	ret;
 
-	start_buffer_display(disp);
+	ret = start_buffer_display(disp);
+	if (ret)
+		return (ret);
 	i = 0;
 	while (i < map->n_e)
 	{
-		if (!is_edge_visible(cam, map, i))
+		if (is_edge_visible(cam, map, i))
 		{
-			i++;
-			continue ;
+			if (putline_display(
+					disp,
+					disp->v[map->e[i].s],
+					disp->v[map->e[i].e]))
+				break ;
 		}
-		putline_display(disp, disp->v[map->e[i].s], disp->v[map->e[i].e]);
 		i++;
 	}
-	end_buffer_display(disp);
+	ret = end_buffer_display(disp);
+	if (ret)
+		return (ret);
+	return (CODE_OK);
 }

@@ -54,10 +54,16 @@ t_state	*create_state(char *map_path)
 
 int	refresh_frame(t_state *state)
 {
-	if (project_to_camera(state->cam, state->map))
-		return (-1);
-	if (project_to_display(state->disp, state->cam))
-		return (-1);
-	putframe_display(state->disp, state->cam, state->map);
-	return (0);
+	int	ret;
+
+	ret = project_to_camera(state->cam, state->map);
+	if (ret)
+		return (ret);
+	ret = project_to_display(state->disp, state->cam);
+	if (ret)
+		return (ret);
+	ret = putframe_display(state->disp, state->cam, state->map);
+	if (ret)
+		return (ret);
+	return (CODE_OK);
 }

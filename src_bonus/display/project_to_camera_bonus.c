@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft_def.h"
 #include "consts_bonus.h"
 #include "display_bonus.h"
 #include <stdlib.h>
@@ -23,25 +24,25 @@ static int	alloc_camera_v(t_camera *cam, int n_v)
 		free(cam->is_visible);
 	cam->v = malloc(sizeof(t_vertex) * n_v);
 	if (!cam->v)
-		return (-1);
+		return (CODE_ERROR_MALLOC);
 	cam->is_visible = malloc(sizeof(int) * n_v);
 	if (!cam->is_visible)
 	{
 		free(cam->v);
 		cam->v = NULL;
-		return (-1);
+		return (CODE_ERROR_MALLOC);
 	}
 	cam->n_v = n_v;
-	return (0);
+	return (CODE_OK);
 }
 
 static int	is_visible(t_vertex *v)
 {
 	if (!(-CLIPPING_XY_D < v->x && v->x < CLIPPING_XY_D))
-		return (0);
+		return (FALSE);
 	if (!(-CLIPPING_XY_D < v->y && v->y < CLIPPING_XY_D))
-		return (0);
-	return (1);
+		return (FALSE);
+	return (TRUE);
 }
 
 static void	project_vertex_isometric(t_camera *cam, t_map *map, int i)
@@ -71,7 +72,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 	int	i;
 
 	if (cam->n_v != map->n_v && alloc_camera_v(cam, map->n_v))
-		return (-1);
+		return (CODE_ERROR_MALLOC);
 	cam->max_z = map->grid_size * 150;
 	i = 0;
 	while (i < map->n_v)
@@ -83,5 +84,5 @@ int	project_to_camera(t_camera *cam, t_map *map)
 			project_vertex_perspective(cam, map, i);
 		i++;
 	}
-	return (0);
+	return (CODE_OK);
 }

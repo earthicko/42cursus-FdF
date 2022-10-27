@@ -68,9 +68,9 @@ static void	putline_display_recur(t_display *disp, t_pixel s, t_pixel e)
 int	putline_display(t_display *disp, t_pixel s, t_pixel e)
 {
 	if (!disp->img)
-		return (-1);
+		return (CODE_ERROR_GENERIC);
 	putpixel_display(disp, s);
 	putpixel_display(disp, e);
 	putline_display_recur(disp, s, e);
-	return (0);
+	return (CODE_OK);
 }
