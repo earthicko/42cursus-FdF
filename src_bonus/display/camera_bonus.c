@@ -27,8 +27,8 @@ void	refresh_camera(t_camera *cam)
 		(int)cam->isometric_d);
 	init_matrix44_identity(&cam->wtoc);
 	translate_m44_inplace(&cam->wtoc, &cam->orig);
-	rotate_m44_inplace(&cam->wtoc, 2, -cam->azi);
-	rotate_m44_inplace(&cam->wtoc, 0, -(M_PI_2 - cam->ele));
+	rotate_m44_inplace(&cam->wtoc, AXIS_Z, -cam->azi);
+	rotate_m44_inplace(&cam->wtoc, AXIS_X, -(M_PI_2 - cam->ele));
 }
 
 static void	initialize_cam(t_camera *cam, t_map *map)
@@ -58,7 +58,7 @@ t_camera	*create_camera(t_map *map)
 	cam = malloc(sizeof(t_camera));
 	if (!cam)
 		return (NULL);
-	ft_memset(cam, 0, sizeof(t_camera));
+	ft_bzero(cam, sizeof(t_camera));
 	initialize_cam(cam, map);
 	ft_printf("Camera Initial Settings\n");
 	ft_printf("Step of angle: %d, Step of distance: %d\n",

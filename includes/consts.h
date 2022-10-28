@@ -6,7 +6,7 @@
 /*   By: donghyle <donghyle@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:09:40 by donghyle          #+#    #+#             */
-/*   Updated: 2022/10/25 16:09:42 by donghyle         ###   ########.fr       */
+/*   Updated: 2022/10/28 22:52:32 by donghyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # define CAM_ELEVATION_DEFAULT 0.6154729070
 # define COLOR_DEFAULT 0x00FFFFFF
 # define GRID_SCALE 5.0
-# define SCREEN_W 2560
-# define SCREEN_H 1200
+# define SCREEN_W 1920
+# define SCREEN_H 900
 # define SCREEN_TITLE "FdF"
 
 #endif

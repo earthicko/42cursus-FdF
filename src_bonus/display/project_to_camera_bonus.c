@@ -79,7 +79,7 @@ int	project_to_camera(t_camera *cam, t_map *map)
 	i = 0;
 	while (i < map->n_v)
 	{
-		cam->is_visible[i] = 0;
+		cam->is_visible[i] = FALSE;
 		if (cam->mode == CAMMODE_ISOMETRIC)
 			project_vertex_isometric(cam, map, i);
 		else if (cam->mode == CAMMODE_PERSPECTIVE)

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "consts_bonus.h"
 #include "display_bonus.h"
 #include <math.h>
 
@@ -31,10 +32,6 @@ void	increment_xyz_camera(t_camera *cam, int axis, int dir)
 	{
 		cam->orig.x += dir * cam->step_d * cos(cam->ele) * sin(cam->azi);
 		cam->orig.y += -dir * cam->step_d * cos(cam->ele) * cos(cam->azi);
-		if (dir > 0)
-			cam->isometric_d /= 1.1;
-		else if (dir < 0)
-			cam->isometric_d *= 1.1;
 	}
 	else if (axis == AXIS_Y)
 	{
@@ -44,4 +41,12 @@ void	increment_xyz_camera(t_camera *cam, int axis, int dir)
 	else if (axis == AXIS_Z)
 		cam->orig.z += dir * cam->step_d * sin(cam->ele) / 2;
 	refresh_camera(cam);
+}
+
+void	increment_isometric_d_camera(t_camera *cam, int dir)
+{
+	if (dir > 0)
+		cam->isometric_d /= INCREMENT_SCALE;
+	else if (dir < 0)
+		cam->isometric_d *= INCREMENT_SCALE;
 }

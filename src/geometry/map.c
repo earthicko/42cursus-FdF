@@ -31,7 +31,7 @@ t_map	*create_map(void)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	ft_memset(map, 0, sizeof(t_map));
+	ft_bzero(map, sizeof(t_map));
 	map->grid_size = 0.0;
 	map->x_bound[0] = 0.0;
 	map->x_bound[1] = 0.0;

@@ -48,7 +48,7 @@ t_state	*create_state(char *map_path)
 	state = malloc(sizeof(t_state));
 	if (!state)
 		return (NULL);
-	ft_memset(state, 0, sizeof(t_state));
+	ft_bzero(state, sizeof(t_state));
 	state->map = parse_map(map_path);
 	if (!state->map)
 		return (del_state(state));

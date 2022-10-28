@@ -50,7 +50,7 @@ t_display	*create_display(int width, int height, char *title)
 	disp = malloc(sizeof(t_display));
 	if (!disp)
 		return (NULL);
-	ft_memset(disp, 0, sizeof(t_display));
+	ft_bzero(disp, sizeof(t_display));
 	disp->mlx = mlx_init();
 	if (!disp->mlx)
 		return (del_display(disp));

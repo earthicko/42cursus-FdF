@@ -67,6 +67,7 @@ void		refresh_camera(t_camera *cam);
 void		increment_e_camera(t_camera *cam, int dir);
 void		increment_a_camera(t_camera *cam, int dir);
 void		increment_xyz_camera(t_camera *cam, int axis, int dir);
+void		increment_isometric_d_camera(t_camera *cam, int dir);
 void		switch_projection_mode(t_camera *cam);
 
 t_display	*create_display(int width, int height, char *title);

@@ -19,8 +19,7 @@
 
 static int	get_colorval(char *color, t_uchar *ret)
 {
-	if (!ft_strchr(HEX_CHARS, color[0])
-		|| !ft_strchr(HEX_CHARS, color[-1]))
+	if (!ft_strchr(HEX_CHARS, color[0]) || !ft_strchr(HEX_CHARS, color[-1]))
 	{
 		ft_dprintf(STDERR_FILENO,
 			"parser: \"%s\" is not a valid color indicator\n", color);

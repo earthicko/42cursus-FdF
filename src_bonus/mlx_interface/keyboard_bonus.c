@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "consts_bonus.h"
 #include "mlx_interface_bonus.h"
 #include <stdlib.h>
 
@@ -32,9 +33,15 @@ static void	increment_pos(int keycode, t_camera *cam)
 	else if (keycode == KEYCODE_E)
 		increment_xyz_camera(cam, 2, 1);
 	else if (keycode == KEYCODE_W)
+	{
 		increment_xyz_camera(cam, 0, 1);
+		increment_isometric_d_camera(cam, 1);
+	}
 	else if (keycode == KEYCODE_S)
+	{
 		increment_xyz_camera(cam, 0, -1);
+		increment_isometric_d_camera(cam, -1);
+	}
 	else if (keycode == KEYCODE_A)
 		increment_xyz_camera(cam, 1, 1);
 	else if (keycode == KEYCODE_D)
@@ -44,9 +51,9 @@ static void	increment_pos(int keycode, t_camera *cam)
 static void	scale_map(int keycode, t_map *map)
 {
 	if (keycode == KEYCODE_PLUS)
-		scale_z_map(map, 1.1);
+		scale_z_map(map, INCREMENT_SCALE);
 	else if (keycode == KEYCODE_MINUS)
-		scale_z_map(map, 1 / 1.1);
+		scale_z_map(map, 1 / INCREMENT_SCALE);
 }
 
 int	exit_program(void *param)
