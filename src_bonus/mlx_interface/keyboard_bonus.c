@@ -29,23 +29,23 @@ static void	increment_angle(int keycode, t_camera *cam)
 static void	increment_pos(int keycode, t_camera *cam)
 {
 	if (keycode == KEYCODE_Q)
-		increment_xyz_camera(cam, 2, -1);
+		increment_xyz_camera(cam, AXIS_Z, -1);
 	else if (keycode == KEYCODE_E)
-		increment_xyz_camera(cam, 2, 1);
+		increment_xyz_camera(cam, AXIS_Z, 1);
 	else if (keycode == KEYCODE_W)
 	{
-		increment_xyz_camera(cam, 0, 1);
+		increment_xyz_camera(cam, AXIS_X, 1);
 		increment_isometric_d_camera(cam, 1);
 	}
 	else if (keycode == KEYCODE_S)
 	{
-		increment_xyz_camera(cam, 0, -1);
+		increment_xyz_camera(cam, AXIS_X, -1);
 		increment_isometric_d_camera(cam, -1);
 	}
 	else if (keycode == KEYCODE_A)
-		increment_xyz_camera(cam, 1, 1);
+		increment_xyz_camera(cam, AXIS_Y, 1);
 	else if (keycode == KEYCODE_D)
-		increment_xyz_camera(cam, 1, -1);
+		increment_xyz_camera(cam, AXIS_Y, -1);
 }
 
 static void	scale_map(int keycode, t_map *map)

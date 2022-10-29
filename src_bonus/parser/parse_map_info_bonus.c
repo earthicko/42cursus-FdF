@@ -59,7 +59,7 @@ static int	determine_height(t_map *map, int fd)
 		{
 			ft_dprintf(STDERR_FILENO,
 				"parser: row %d has different number of cols (%d != %d)\n",
-				next_row->len, map->n_col);
+				map->n_row, next_row->len, map->n_col);
 			return (CODE_ERROR_DATA);
 		}
 	}
