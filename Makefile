@@ -1,24 +1,27 @@
 NAME			= fdf
-BONUS			= fdf
-
+################################# LIBRARIES ####################################
 LIBFT_DIR		= libft
-LIBFT			= libft.a
-LINK_LIBFT		= -L$(LIBFT_DIR) $(LIBFT_DIR)/$(LIBFT)
+LIBFT			= $(LIBFT_DIR)/libft.a
+LINK_LIBFT		= -L$(LIBFT_DIR)
 INC_DIR_LIBFT	= -I$(LIBFT_DIR)/includes
 
 LIBMLX_DIR		= minilibx_macos
-LIBMLX			= libmlx.a
-LINK_LIBMLX		= -L$(LIBMLX_DIR) $(LIBMLX_DIR)/$(LIBMLX) -framework OpenGL -framework AppKit
+LIBMLX			= $(LIBMLX_DIR)/libmlx.a
+LINK_LIBMLX		= -L$(LIBMLX_DIR) -framework OpenGL -framework AppKit
 INC_DIR_LIBMLX	= -I$(LIBMLX_DIR)
 
 LINK_LIBM		= -lm
 
 LINK_LIBS		= $(LINK_LIBFT) $(LINK_LIBMLX) $(LINK_LIBM)
 
-INC_DIR			= -I. $(INC_DIR_LIBFT) $(INC_DIR_LIBMLX) -Iincludes
-INC_DIR_BONUS	= -I. $(INC_DIR_LIBFT) $(INC_DIR_LIBMLX) -Iincludes_bonus
-
-SRCNAME			= \
+INC_DIR_M		= -I. $(INC_DIR_LIBFT) $(INC_DIR_LIBMLX) -Iincludes_mandatory
+INC_DIR_B		= -I. $(INC_DIR_LIBFT) $(INC_DIR_LIBMLX) -Iincludes_bonus
+################################# COMMANDS #####################################
+RM				= rm -f
+CC				= gcc
+CFLAGS			= -Wall -Werror -Wextra -MMD -MP
+################################ FILENAMES #####################################
+NAME_M			= \
 				parser/parser \
 				parser/parse_map_info \
 				parser/parse_map_content \
@@ -36,7 +39,7 @@ SRCNAME			= \
 				mlx_interface/mlx_interface \
 				fdf
 
-SRCNAME_BONUS	= \
+NAME_B			= \
 				parser/parser_bonus \
 				parser/parse_map_info_bonus \
 				parser/parse_map_content_bonus \
@@ -57,46 +60,78 @@ SRCNAME_BONUS	= \
 				mlx_interface/state_bonus \
 				fdf_bonus
 
-SRC				= $(addprefix src/, $(addsuffix .c, $(SRCNAME)))
-OBJ				= $(addprefix src/, $(addsuffix .o, $(SRCNAME)))
-SRC_BONUS		= $(addprefix src_bonus/, $(addsuffix .c, $(SRCNAME_BONUS)))
-OBJ_BONUS		= $(addprefix src_bonus/, $(addsuffix .o, $(SRCNAME_BONUS)))
+SRC_M			= $(addprefix src_mandatory/, $(addsuffix .c, $(NAME_M)))
+OBJ_M			= $(addprefix src_mandatory/, $(addsuffix .o, $(NAME_M)))
+DEP_M			= $(addprefix src_mandatory/, $(addsuffix .d, $(NAME_M)))
+STAT_M			= mandatory.log
 
-RM				= rm -f
-CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra
+SRC_B			= $(addprefix src_bonus/, $(addsuffix .c, $(NAME_B)))
+OBJ_B			= $(addprefix src_bonus/, $(addsuffix .o, $(NAME_B)))
+DEP_B			= $(addprefix src_bonus/, $(addsuffix .d, $(NAME_B)))
+STAT_B			= bonus.log
+################################# SRC SET ######################################
+ifdef TARGET
+ifeq ($(TARGET), MANDATORY)
+SRC				= $(SRC_M)
+OBJ				= $(OBJ_M)
+DEP				= $(DEP_M)
+INC_DIR			= $(INC_DIR_M)
+STAT			= $(STAT_M)
+endif
+ifeq ($(TARGET), BONUS)
+SRC				= $(SRC_B)
+OBJ				= $(OBJ_B)
+DEP				= $(DEP_B)
+INC_DIR			= $(INC_DIR_B)
+STAT			= $(STAT_B)
+endif
+else
+SRC				= $(SRC_M)
+OBJ				= $(OBJ_M)
+DEP				= $(DEP_M)
+INC_DIR			= $(INC_DIR_M)
+STAT			= $(STAT_M)
+endif
+################################# TARGETS ######################################
+all:
+	@make TARGET=MANDATORY $(NAME)
 
-all : $(NAME)
+bonus:
+	@make TARGET=BONUS $(NAME)
 
-$(NAME) : $(LIBFT) $(LIBMLX) $(OBJ)
-	@$(CC) $(CFLAGS) $(INC_DIR) $(OBJ) $(LINK_LIBS) -o $(NAME)
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJ) $(STAT)
+	$(CC) $(CFLAGS) $(INC_DIR) $(LINK_LIBS) $(LIBFT) $(LIBMLX) $(OBJ) -o $@
 
-bonus : $(LIBFT) $(LIBMLX) $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(INC_DIR_BONUS) $(OBJ_BONUS) $(LINK_LIBS) -o $(BONUS)
+$(LIBFT):
+	@make -j4 -C $(LIBFT_DIR)/
 
-$(LIBFT) :
-	make -s -C $(LIBFT_DIR)/
+$(LIBMLX):
+	@make -j4 -C $(LIBMLX_DIR)/
 
-$(LIBMLX) :
-	make -s -C $(LIBMLX_DIR)/
+$(STAT_M): $(OBJ_M)
+	rm -f $(STAT_B)
+	touch $(STAT_M)
 
-src/%.o : src/%.c
+$(STAT_B): $(OBJ_B)
+	rm -f $(STAT_M)
+	touch $(STAT_B)
+
+-include $(DEP)
+
+%.o: %.c
 	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
 
-src_bonus/%.o : src_bonus/%.c
-	$(CC) $(CFLAGS) $(INC_DIR_BONUS) -c $< -o $@
+clean:
+	$(RM) $(OBJ_M) $(OBJ_B) $(DEP_M) $(DEP_B) $(STAT_M) $(STAT_B)
+	@make clean -C $(LIBFT_DIR)
 
-clean :
-	$(RM) $(OBJ) $(OBJ_BONUS) $(NAME).o $(BONUS).o
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(LIBMLX_DIR)
-
-fclean : clean
+fclean: clean
 	$(RM) $(NAME) $(BONUS)
-	make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(LIBFT_DIR)
+	@make clean -C $(LIBMLX_DIR)
 
-re :
-	make fclean
-	make all
+re:
+	@make fclean
+	@make all
 
-.PHONY : all bonus clean fclean re $(NAME) bonus
+.PHONY: all bonus clean fclean re
