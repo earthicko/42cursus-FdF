@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf_def.h"
 #include "consts.h"
 #include "parser.h"
 #include <fcntl.h>
